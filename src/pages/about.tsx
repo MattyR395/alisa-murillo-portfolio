@@ -1,8 +1,6 @@
 import Image from "next/image";
 import style from "./About.module.scss";
 
-console.log(style);
-
 export default function About(): JSX.Element {
   return (
     <div className={style.about}>

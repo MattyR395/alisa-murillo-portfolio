@@ -3,5 +3,9 @@ import { create } from "zustand";
 
 export const useAppStore = create<AppState>((set) => ({
   isMobileMenuOpen: false,
-  toggleMobileMenu: () => set((state) => ({ isMobileMenuOpen: !state.isMobileMenuOpen })),
-}))
+  toggleMobileMenu: () =>
+    set((state) => ({ isMobileMenuOpen: !state.isMobileMenuOpen })),
+  closeMobileMenu() {
+    set({ isMobileMenuOpen: false });
+  },
+}));
