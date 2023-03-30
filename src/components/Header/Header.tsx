@@ -1,3 +1,4 @@
+import { navLinks } from "@/constants/nav-links";
 import { useAppStore } from "@/store/store";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import clsx from "clsx";
@@ -74,26 +75,29 @@ export default function Header(): JSX.Element {
         >
           <nav className={style.header__nav}>
             <Link
-              href="/about"
+              href={navLinks.about.path}
               className={clsx({
                 [style.link]: true,
-                [style["is-active"]]: router.pathname === "/about",
+                [style["is-active"]]: router.pathname === navLinks.about.path,
               })}
             >
-              About
+              {navLinks.about.label}
             </Link>
 
-            <Logo href="/" />
+            <Logo
+              href={navLinks.portfolio.path}
+              title={navLinks.portfolio.label}
+            />
 
             <Link
-              href="/contact"
+              href={navLinks.contact.path}
               className={clsx({
                 [style.link]: true,
                 [style.right]: true,
-                [style["is-active"]]: router.pathname === "/contact",
+                [style["is-active"]]: router.pathname === navLinks.contact.path,
               })}
             >
-              Contact
+              {navLinks.contact.label}
             </Link>
 
             <span className={style["hide-lg"]}>

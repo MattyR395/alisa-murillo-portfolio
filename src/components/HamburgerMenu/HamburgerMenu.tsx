@@ -1,3 +1,4 @@
+import { navLinks } from "@/constants/nav-links";
 import clsx from "clsx";
 import Link from "next/link";
 import style from "./HamburgerMenu.module.scss";
@@ -17,15 +18,11 @@ export default function HamburgerMenu(props: {
       }}
     >
       <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/about">About</Link>
-        </li>
-        <li>
-          <Link href="/contact">Contact</Link>
-        </li>
+        {Object.values(navLinks).map((link) => (
+          <li key={link.path}>
+            <Link href={link.path}>{link.label}</Link>
+          </li>
+        ))}
       </ul>
     </div>
   );

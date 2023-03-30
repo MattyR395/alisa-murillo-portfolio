@@ -1,9 +1,12 @@
 import Link from "next/link";
 import style from "./Logo.module.scss";
 
-export default function Logo(props: { href: string }): JSX.Element {
+export default function Logo(props: {
+  href: string;
+  title: string;
+}): JSX.Element {
   return (
-    <Link href={props.href} className={style.logo} title="Alisa Murillo">
+    <Link href={props.href} className={style.logo} title={props.title}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 32.59 18.99"
