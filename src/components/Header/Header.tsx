@@ -4,10 +4,10 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import HamburgerMenu from "./HamburgerMenu/_HamburgerMenu";
+import HamburgerButton from "../HamburgerButton/HamburgerButton";
+import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
+import Logo from "../Logo/Logo";
 import style from "./Header.module.scss";
-import HamburgerButton from "./_HamburgerButton";
-import Logo from "./_Logo";
 
 export default function Header(): JSX.Element {
   const [headerHeight, setHeaderHeight] = useState(0);

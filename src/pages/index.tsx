@@ -1,5 +1,5 @@
 import Masonry from "react-masonry-css";
-import PortfolioCard from "./components/_PortfolioCard";
+import PortfolioCard from "../components/PortfolioCard/PortfolioCard";
 
 function randomIntFromInterval(min: number, max: number) {
   // min and max included
