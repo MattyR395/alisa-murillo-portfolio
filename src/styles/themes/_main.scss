@@ -1,0 +1,95 @@
+:root {
+  @include define-color("primary", #f3b455);
+  @include define-color("primary-text", #f4f3f3);
+  @include define-color("primary-subtext", #d5e7ff);
+
+  @include define-color("secondary", #6466bd);
+  @include define-color("secondary-text", #f4f3f3);
+  @include define-color("secondary-subtext", #d5e7ff);
+
+  @include define-color("bg", #ece5d6);
+  @include define-color("bg-accent", #eed1bf);
+  @include define-color("bg-text", #36385c);
+  @include define-color("bg-subtext", #7e7c8c);
+  @include define-color("bg-divider", #d8d2c5);
+
+  @include define-color("focus", #3473d4);
+
+  @include define-color("success", #29c557);
+  @include define-color("success-text", #fff);
+
+  @include define-color("warning", #e6873a);
+  @include define-color("warning-text", #fff);
+
+  @include define-color("danger", #d34040);
+  @include define-color("danger-text", #fff);
+
+  @include define-color("disabled", #35383d);
+  @include define-color("disabled-text", #c6c6c6);
+
+  // Spacing
+  --gap-xs: 0.4rem;
+  --gap-sm: 0.8rem;
+  --gap-md: 1.4rem;
+  --gap-lg: 3rem;
+  --gap-xl: 6rem;
+
+  --page-gutter: var(--gap-lg);
+  @media (max-width: 800px) {
+    --page-gutter: var(--gap-md);
+  }
+
+  --main-width: 1200px;
+
+  // Typography
+  --font-size-base: max(17px, 1vw);
+  --font-size-body: 100%;
+
+  --font-size-title: 3rem;
+  --font-size-h1: 2.3rem;
+  --font-size-h2: 1.8rem;
+  --font-size-h3: 1.5rem;
+  --font-size-h4: 1.2rem;
+
+  --line-height-base: 1.4;
+
+  --font-size-text: 1rem;
+  --font-size-subtext: 0.875rem;
+
+  --font-family-primary: "Poppins", sans-serif;
+  --font-family-secondary: var(--font-family-primary);
+
+  @include define-font(
+    "body",
+    var(--font-size-body),
+    400,
+    var(--font-family-primary),
+    var(--line-height-base)
+  );
+
+  @include define-font(
+    "link",
+    1.1rem,
+    600,
+    var(--font-family-primary),
+    var(--line-height-base)
+  );
+
+  // Effects
+  --box-shadow-main: 0 4px 10px #{color("bg-accent", 0deg, -70%, 0%, -0.85)};
+
+  --transition-delay: 0.3s;
+  --transition-main: all var(--transition-delay)
+    cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  --border-radius-primary: 1rem;
+  --border-radius-secondary: calc(var(--border-radius-primary) * 0.7);
+
+  // Header
+  --color-header-bg: transparent;
+  --color-header-text: #{color("bg-text")};
+
+  --box-shadow-header: var(--box-shadow-main);
+  --gutter-header-content: var(--page-gutter);
+  --width-header-content: var(--main-width);
+}

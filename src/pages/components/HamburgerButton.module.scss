@@ -1,0 +1,56 @@
+@import "@/styles/functions/color";
+
+.hamburger {
+  width: 34px;
+  z-index: 101;
+  position: relative;
+  color: color("secondary");
+  text-align: center;
+  font-size: 72%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  &__bars {
+    &::after,
+    &::before,
+    div {
+      background-color: color("secondary");
+      border-radius: 3px;
+      content: "";
+      display: block;
+      height: 3px;
+      margin: 6px 0;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+  }
+
+  &.is-open {
+    .hamburger__bars {
+      div {
+        transform: scale(0);
+      }
+
+      &::before {
+        transform: translateY(9px) rotate(135deg);
+      }
+
+      &::after {
+        transform: translateY(-9px) rotate(-135deg);
+      }
+    }
+  }
+
+  // Invisible overlay to increase the clickable area.
+  &::after {
+    content: "";
+    top: -16px;
+    right: -26px;
+    bottom: -10px;
+    left: -26px;
+    position: absolute;
+    pointer-events: all;
+    border-radius: 20%;
+  }
+}

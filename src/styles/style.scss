@@ -1,0 +1,23 @@
+@import "mixins/define-color";
+@import "mixins/define-font";
+@import "mixins/font";
+@import "functions/color";
+
+@import "reset";
+@import "themes/main";
+@import "global.scss";
+
+.portfolio-container {
+  display: flex;
+  width: auto;
+
+  &,
+  &__column {
+    gap: var(--gap-lg);
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+  }
+}

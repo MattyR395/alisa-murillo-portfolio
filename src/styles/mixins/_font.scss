@@ -1,0 +1,6 @@
+@mixin font($name) {
+  font-weight: var(--font-weight-#{$name});
+  font-size: var(--font-size-#{$name});
+  line-height: var(--line-height-#{$name});
+  font-family: var(--font-family-#{$name});
+}

@@ -1,0 +1,112 @@
+@import "@/styles/functions/color";
+@import "@/styles/mixins/font";
+@import "@/styles/mixins/clickable-area";
+
+$link-color: color("secondary");
+
+.header {
+  background-color: var(--color-header-bg);
+  color: var(--color-header-text);
+
+  padding-block: var(--gap-md);
+  padding-block-start: var(--gap-lg);
+
+  &__nav {
+    padding-inline: var(--gutter-header-content);
+    max-width: var(--width-header-content);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--gap-lg);
+  }
+
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(15px) opacity(0);
+  transition: all 0.6s ease;
+
+  &.is-compact {
+    backdrop-filter: blur(15px) opacity(1);
+    box-shadow: var(--box-shadow-header);
+    padding-block: var(--gap-sm);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: color("bg-accent", 0deg, 0%, 0%, -0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: blur(10px);
+  }
+}
+
+.link {
+  color: $link-color;
+  @include font("link");
+  transition: var(--transition-main);
+
+  opacity: 0.8;
+
+  &::after {
+    content: "";
+    display: block;
+    height: 0.162rem;
+    background: $link-color;
+    width: 0;
+    transition: var(--transition-main);
+    position: absolute;
+    bottom: -0.3rem;
+  }
+
+  &:hover,
+  &.is-active {
+    opacity: 1;
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  @include clickable-area(1rem, 1rem, 1rem, 1rem);
+
+  &.right::after {
+    right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .link {
+    display: none;
+  }
+}
+
+.hide-lg {
+  display: none;
+}
+
+.show-lg {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .hide-lg {
+    display: block;
+  }
+
+  .show-lg {
+    display: none;
+  }
+}

@@ -1,0 +1,15 @@
+@import "@/styles/functions/color.scss";
+
+.page-not-found {
+  padding-top: 8rem;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    margin-top: 1rem;
+    color: color("bg-subtext");
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+}

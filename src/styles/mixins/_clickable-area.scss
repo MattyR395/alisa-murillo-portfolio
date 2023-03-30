@@ -1,0 +1,14 @@
+@mixin clickable-area($top, $right, $bottom, $left) {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -$top;
+    left: -$left;
+    right: -$right;
+    bottom: -$bottom;
+    pointer-events: all;
+    border-radius: 20%;
+  }
+}

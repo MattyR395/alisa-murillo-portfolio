@@ -1,0 +1,16 @@
+@import "@/styles/functions/color";
+
+.logo {
+  z-index: 101;
+  opacity: 0.9;
+  transition: var(--transition-main);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.logo-svg {
+  width: 6.5rem;
+  color: color("secondary");
+}
