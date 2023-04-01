@@ -2,15 +2,15 @@ import { NavLinks } from "@/models/nav-link.model";
 
 export const navLinks: NavLinks = {
   portfolio: {
-    label: "Portfolio",
+    label: "common:header.portfolio",
     path: "/",
   },
   about: {
-    label: "About",
+    label: "common:header.about",
     path: "/about",
   },
   contact: {
-    label: "Contact",
+    label: "common:header.contact",
     path: "/contact",
-  }
-}
+  },
+};

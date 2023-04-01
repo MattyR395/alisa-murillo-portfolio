@@ -2,6 +2,7 @@ import { navLinks } from "@/constants/nav-links";
 import { useAppStore } from "@/store/store";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import clsx from "clsx";
+import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -11,6 +12,7 @@ import Logo from "../Logo/Logo";
 import style from "./Header.module.scss";
 
 export default function Header(): JSX.Element {
+  const { t } = useTranslation("common");
   const [headerHeight, setHeaderHeight] = useState(0);
   const [isBodyScrolled, setIsBodyScrolled] = useState(false);
   const { isMobileMenuOpen, toggleMobileMenu } = useAppStore((state) => state);
@@ -44,7 +46,7 @@ export default function Header(): JSX.Element {
     return () => {
       window.removeEventListener("scroll", handleBodyScroll);
     };
-  }, []);
+  }, [handleBodyScroll]);
 
   // Disable body scroll when mobile menu is open.
   useEffect(() => {
@@ -81,12 +83,12 @@ export default function Header(): JSX.Element {
                 [style["is-active"]]: router.pathname === navLinks.about.path,
               })}
             >
-              {navLinks.about.label}
+              {t(navLinks.about.label)}
             </Link>
 
             <Logo
               href={navLinks.portfolio.path}
-              title={navLinks.portfolio.label}
+              title={t(navLinks.portfolio.label)}
             />
 
             <Link
@@ -97,7 +99,7 @@ export default function Header(): JSX.Element {
                 [style["is-active"]]: router.pathname === navLinks.contact.path,
               })}
             >
-              {navLinks.contact.label}
+              {t(navLinks.contact.label)}
             </Link>
 
             <span className={style["hide-lg"]}>

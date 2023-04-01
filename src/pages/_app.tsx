@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
     return () => {
       router.events.off("routeChangeStart", handleRouteChangeStart);
     };
-  }, [router]);
+  }, [router, closeMobileMenu]);
 
   return (
     <>

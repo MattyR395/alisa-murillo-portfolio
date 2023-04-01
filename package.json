@@ -19,6 +19,7 @@
     "eslint-config-next": "13.2.4",
     "lodash": "^4.17.21",
     "next": "13.2.4",
+    "next-translate": "^2.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-masonry-css": "^1.0.16",
@@ -27,6 +28,7 @@
     "zustand": "^4.3.6"
   },
   "devDependencies": {
+    "next-translate-plugin": "^2.0.4",
     "sass": "^1.60.0"
   }
 }

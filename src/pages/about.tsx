@@ -1,7 +1,10 @@
+import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import style from "./About.module.scss";
 
 export default function About(): JSX.Element {
+  const { t } = useTranslation("about");
+
   return (
     <div className={style.about}>
       <div className={style.about__image}>
@@ -15,7 +18,7 @@ export default function About(): JSX.Element {
 
       <div>
         <hgroup>
-          <h1>Hi, I'm Alisa</h1>
+          <h1>{t("header")}</h1>
           <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit, quia?
           </p>
