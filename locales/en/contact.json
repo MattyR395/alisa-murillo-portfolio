@@ -4,15 +4,18 @@
   "form": {
     "name": {
       "label": "Your name",
-      "placeholder": "Full or short name"
+      "placeholder": "Full or short name",
+      "required": "Please enter your name"
     },
     "email": {
       "label": "Email",
-      "placeholder": "name@example.com"
+      "placeholder": "name@example.com",
+      "invalid": "Please enter a valid email address"
     },
     "message": {
       "label": "Message",
-      "placeholder": "A quick message about your project or inquiry. I'll get in touch to disuss the details."
+      "placeholder": "A quick message about your project or inquiry. I'll get in touch to disuss the details.",
+      "required": "Please enter a message"
     },
     "submit": "Send Message"
   },

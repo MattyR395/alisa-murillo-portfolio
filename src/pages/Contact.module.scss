@@ -48,7 +48,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: min-content auto min-content;
-    gap: var(--gap-md);
+    column-gap: var(--gap-md);
+    row-gap: var(--gap-sm);
 
     button {
       width: max-content;

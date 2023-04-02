@@ -4,15 +4,18 @@
   "form": {
     "name": {
       "label": "Tu nombre",
-      "placeholder": "Nombre completo o abreviado"
+      "placeholder": "Nombre completo o abreviado",
+      "required": "Por favor, introduce tu nombre"
     },
     "email": {
       "label": "Correo electrónico",
-      "placeholder": "nombre@ejemplo.com"
+      "placeholder": "nombre@ejemplo.com",
+      "invalid": "Por favor, introduce una dirección de correo electrónico válida"
     },
     "message": {
       "label": "Mensaje",
-      "placeholder": "Un mensaje rápido sobre tu proyecto o consulta. Me pondré en contacto para discutir los detalles."
+      "placeholder": "Un mensaje rápido sobre tu proyecto o consulta. Me pondré en contacto para discutir los detalles.",
+      "required": "Por favor, introduce un mensaje"
     },
     "submit": "Enviar mensaje"
   },

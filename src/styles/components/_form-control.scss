@@ -4,6 +4,7 @@ $font-size: 0.9rem;
 $background-color: color("secondary", 0deg, 0%, 0%, -0.95);
 $border-width: 0.12rem;
 $vertical-padding: 0.9rem - $border-width;
+$horizontal-padding: 0.75rem;
 
 .form-control {
   box-sizing: border-box;
@@ -11,7 +12,7 @@ $vertical-padding: 0.9rem - $border-width;
   width: 100%;
   border-radius: 0.6rem;
   font-size: $font-size;
-  padding-inline: 0.75rem;
+  padding-inline: $horizontal-padding;
   padding-block: $vertical-padding;
   min-height: $min-height;
   line-height: $line-height;
@@ -30,6 +31,10 @@ textarea {
     &:focus {
       outline: none;
       border-color: color("secondary", 0deg, 0%, 0%, -0.4);
+    }
+
+    &[aria-invalid="true"] {
+      border-color: color("danger");
     }
   }
 }
@@ -72,4 +77,16 @@ button.form-control {
   display: block;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
+}
+
+.validation-tooltip {
+  visibility: hidden;
+}
+.form-control[aria-invalid="true"] + .validation-tooltip {
+  display: block;
+  visibility: visible;
+  padding: 0.2rem 0.5rem;
+  padding-inline-start: $horizontal-padding;
+  color: color("danger");
+  font-size: 0.8rem;
 }
