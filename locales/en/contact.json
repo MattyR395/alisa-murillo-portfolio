@@ -1,0 +1,21 @@
+{
+  "header": "Let's work together!",
+  "subheader": "I'm always looking for new opportunities to work with great people. If you have a project you'd like to discuss, please get in touch.",
+  "form": {
+    "name": {
+      "label": "Your name",
+      "placeholder": "Full or short name"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "name@example.com"
+    },
+    "message": {
+      "label": "Message",
+      "placeholder": "A quick message about your project or inquiry. I'll get in touch to disuss the details."
+    },
+    "submit": "Send Message"
+  },
+  "phone": "Phone number",
+  "email": "Email"
+}

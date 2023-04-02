@@ -7,6 +7,9 @@
 @import "themes/main";
 @import "global.scss";
 
+@import "components/form-control";
+@import "components/card";
+
 .portfolio-container {
   display: flex;
   width: auto;

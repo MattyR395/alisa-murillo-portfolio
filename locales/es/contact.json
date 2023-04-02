@@ -1,0 +1,21 @@
+{
+  "header": "¡Trabajemos juntos!",
+  "subheader": "Siempre estoy buscando nuevas oportunidades para trabajar con gente increíble. Si tienes un proyecto que te gustaría discutir, por favor contáctame.",
+  "form": {
+    "name": {
+      "label": "Tu nombre",
+      "placeholder": "Nombre completo o abreviado"
+    },
+    "email": {
+      "label": "Correo electrónico",
+      "placeholder": "nombre@ejemplo.com"
+    },
+    "message": {
+      "label": "Mensaje",
+      "placeholder": "Un mensaje rápido sobre tu proyecto o consulta. Me pondré en contacto para discutir los detalles."
+    },
+    "submit": "Enviar mensaje"
+  },
+  "phone": "Teléfono",
+  "email": "Correo electrónico"
+}

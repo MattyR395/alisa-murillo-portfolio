@@ -43,6 +43,7 @@ body {
 main {
   max-width: var(--main-width);
   padding-inline: var(--page-gutter);
+  padding-block-end: var(--gap-lg);
   width: 100%;
   margin: 0 auto;
 }
@@ -60,6 +61,14 @@ h1 {
   letter-spacing: -0.12rem;
 }
 
+h2 {
+  font-weight: 600;
+  font-size: max(1.4rem, 1.6vw);
+  color: color("secondary");
+  letter-spacing: -0.08rem;
+  margin-bottom: 0.8rem;
+}
+
 hgroup {
   h1,
   h2,
@@ -67,7 +76,7 @@ hgroup {
   h4,
   h5,
   h6 {
-    margin-bottom: 0;
+    margin-bottom: 0.3rem;
     line-height: 1.2;
 
     + * {
@@ -76,8 +85,6 @@ hgroup {
       font-style: italic;
     }
   }
-
-  margin-bottom: var(--gap-md);
 }
 
 p {
