@@ -1,19 +1,49 @@
 import ValidationTooltip from "@/components/ValidationTooltip/ValidationTooltip";
 import { validateEmail } from "@/utils/validation/email";
+import useWeb3Forms from "@web3forms/react";
+import clsx from "clsx";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import style from "./Contact.module.scss";
 
+interface ContactFormValues {
+  name: string;
+  email: string;
+  message: string;
+}
+
 export default function Contact(): JSX.Element {
   const { t } = useTranslation("contact");
+  const [isContactSubmitLoading, setIsContactSubmitLoading] = useState(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm<ContactFormValues>();
 
-  const onSubmit = (data: any) => console.log(data);
+  const { submit: web3FormSubmit } = useWeb3Forms({
+    access_key: process.env.NEXT_PUBLIC_WEB3_FORMS_API_KEY ?? "",
+    settings: {
+      from_name: "Mail bot",
+      subject: "Contact form enquiry",
+    },
+    onSuccess: () => {
+      setIsContactSubmitLoading(false);
+      reset();
+    },
+    onError: () => {
+      setIsContactSubmitLoading(false);
+      alert(t("form.error"));
+    },
+  });
+
+  const onSubmit = (data: ContactFormValues) => {
+    setIsContactSubmitLoading(true);
+    web3FormSubmit(data);
+  };
 
   return (
     <div className={style.contact}>
@@ -38,6 +68,7 @@ export default function Contact(): JSX.Element {
             className="form-control"
             id="contactNameInput"
             placeholder={t("form.name.placeholder")}
+            disabled={isContactSubmitLoading}
           />
           <ValidationTooltip messages={[t("form.name.required")]} />
         </div>
@@ -53,6 +84,7 @@ export default function Contact(): JSX.Element {
             className="form-control"
             id="contactEmailInput"
             placeholder={t("form.email.placeholder")}
+            disabled={isContactSubmitLoading}
           />
 
           <ValidationTooltip messages={[t("form.email.invalid")]} />
@@ -69,12 +101,20 @@ export default function Contact(): JSX.Element {
             id="contactMessageInput"
             rows={4}
             placeholder={t("form.message.placeholder")}
+            disabled={isContactSubmitLoading}
           />
           <ValidationTooltip messages={[t("form.message.required")]} />
         </div>
 
-        <button className="form-control" type="submit">
-          {t("form.submit")}
+        <button
+          className={clsx({
+            "form-control": true,
+            "is-loading": isContactSubmitLoading,
+          })}
+          disabled={isContactSubmitLoading}
+          type="submit"
+        >
+          <span>{t("form.submit")}</span>
         </button>
       </form>
 

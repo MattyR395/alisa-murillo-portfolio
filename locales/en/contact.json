@@ -17,7 +17,9 @@
       "placeholder": "A quick message about your project or inquiry. I'll get in touch to disuss the details.",
       "required": "Please enter a message"
     },
-    "submit": "Send Message"
+    "submit": "Send Message",
+    "success": "Message sent! I'll get back to you as soon as possible.",
+    "error": "There was an error sending your message. Please try again later or use my email directly."
   },
   "phone": "Phone number",
   "email": "Email"

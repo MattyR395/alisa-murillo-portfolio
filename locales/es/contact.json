@@ -17,7 +17,9 @@
       "placeholder": "Un mensaje rápido sobre tu proyecto o consulta. Me pondré en contacto para discutir los detalles.",
       "required": "Por favor, introduce un mensaje"
     },
-    "submit": "Enviar mensaje"
+    "submit": "Enviar mensaje",
+    "success": "¡Mensaje enviado! Me pondré en contacto contigo tan pronto como sea posible.",
+    "error": "Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde o utiliza directamente mi correo electrónico."
   },
   "phone": "Teléfono",
   "email": "Correo electrónico"

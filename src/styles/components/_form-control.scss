@@ -18,6 +18,11 @@ $horizontal-padding: 0.75rem;
   line-height: $line-height;
   border: 0.12rem solid color("secondary", 0deg, 0%, 0%, -0.75);
   transition: var(--transition-main);
+
+  &[disabled] {
+    opacity: 0.6;
+    cursor: default;
+  }
 }
 
 input,
@@ -51,7 +56,7 @@ button.form-control {
   border-color: color("secondary");
   position: relative;
 
-  &::after {
+  &:not([disabled])::after {
     content: "";
     position: absolute;
     top: -$border-width;
@@ -71,6 +76,28 @@ button.form-control {
       opacity: 1;
     }
   }
+
+  &.is-loading {
+    > span {
+      visibility: hidden;
+      opacity: 0;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      width: 1.2rem;
+      height: 1.2rem;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      border: 0.2rem solid transparent;
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: button-loading-spinner 1s ease infinite;
+    }
+  }
 }
 
 .form-control-label {
@@ -82,6 +109,7 @@ button.form-control {
 .validation-tooltip {
   visibility: hidden;
 }
+
 .form-control[aria-invalid="true"] + .validation-tooltip {
   display: block;
   visibility: visible;
@@ -89,4 +117,14 @@ button.form-control {
   padding-inline-start: $horizontal-padding;
   color: color("danger");
   font-size: 0.8rem;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
 }
