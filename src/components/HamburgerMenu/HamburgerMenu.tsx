@@ -2,9 +2,10 @@ import { navLinks } from "@/constants/nav-links";
 import clsx from "clsx";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
+import { memo } from "react";
 import style from "./HamburgerMenu.module.scss";
 
-export default function HamburgerMenu(props: {
+function HamburgerMenu(props: {
   isOpen: boolean;
   headerHeightPx: number;
 }): JSX.Element {
@@ -30,3 +31,5 @@ export default function HamburgerMenu(props: {
     </div>
   );
 }
+
+export default memo(HamburgerMenu);

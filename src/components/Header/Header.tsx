@@ -5,33 +5,26 @@ import clsx from "clsx";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import HamburgerButton from "../HamburgerButton/HamburgerButton";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import Logo from "../Logo/Logo";
 import style from "./Header.module.scss";
 
 export default function Header(): JSX.Element {
-  const { t } = useTranslation("common");
   const [headerHeight, setHeaderHeight] = useState(0);
   const [isBodyScrolled, setIsBodyScrolled] = useState(false);
   const { isMobileMenuOpen, toggleMobileMenu } = useAppStore((state) => state);
 
   const headerHeightRef = useRef<HTMLDivElement>(null);
 
-  const router = useRouter();
-
   /**
    * Determines the page has been scrolled away from the top.
    * If so, the header will be put in "compact" mode.
    */
-  const checkIsBodyScrolled = () => {
+  const handleBodyScroll = () => {
     setIsBodyScrolled(window.scrollY > 50);
   };
-
-  const handleBodyScroll = useCallback(() => {
-    checkIsBodyScrolled();
-  }, []);
 
   const handleHamburgerClick = () => {
     toggleMobileMenu();
@@ -39,14 +32,14 @@ export default function Header(): JSX.Element {
 
   useEffect(() => {
     setHeaderHeight(headerHeightRef.current!.clientHeight);
-    checkIsBodyScrolled();
+    handleBodyScroll();
 
     window.addEventListener("scroll", handleBodyScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleBodyScroll);
     };
-  }, [handleBodyScroll]);
+  }, []);
 
   // Disable body scroll when mobile menu is open.
   useEffect(() => {
@@ -75,42 +68,56 @@ export default function Header(): JSX.Element {
           })}
           ref={headerHeightRef}
         >
-          <nav className={style.header__nav}>
-            <Link
-              href={navLinks.about.path}
-              className={clsx({
-                [style.link]: true,
-                [style["is-active"]]: router.pathname === navLinks.about.path,
-              })}
-            >
-              {t(navLinks.about.label)}
-            </Link>
-
-            <Logo
-              href={navLinks.portfolio.path}
-              title={t(navLinks.portfolio.label)}
-            />
-
-            <Link
-              href={navLinks.contact.path}
-              className={clsx({
-                [style.link]: true,
-                [style.right]: true,
-                [style["is-active"]]: router.pathname === navLinks.contact.path,
-              })}
-            >
-              {t(navLinks.contact.label)}
-            </Link>
-
-            <span className={style["hide-lg"]}>
-              <HamburgerButton
-                onClick={handleHamburgerClick}
-                isActivated={isMobileMenuOpen}
-              />
-            </span>
-          </nav>
+          <Nav
+            handleHamburgerClick={handleHamburgerClick}
+            isMobileMenuOpen={isMobileMenuOpen}
+          />
         </header>
       </div>
     </>
   );
 }
+
+const Nav = memo(
+  (props: { handleHamburgerClick: () => void; isMobileMenuOpen: boolean }) => {
+    const router = useRouter();
+    const { t } = useTranslation("common");
+
+    return (
+      <nav className={style.header__nav}>
+        <Link
+          href={navLinks.about.path}
+          className={clsx({
+            [style.link]: true,
+            [style["is-active"]]: router.pathname === navLinks.about.path,
+          })}
+        >
+          {t(navLinks.about.label)}
+        </Link>
+
+        <Logo
+          href={navLinks.portfolio.path}
+          title={t(navLinks.portfolio.label)}
+        />
+
+        <Link
+          href={navLinks.contact.path}
+          className={clsx({
+            [style.link]: true,
+            [style.right]: true,
+            [style["is-active"]]: router.pathname === navLinks.contact.path,
+          })}
+        >
+          {t(navLinks.contact.label)}
+        </Link>
+
+        <span className={style["hide-lg"]}>
+          <HamburgerButton
+            onClick={props.handleHamburgerClick}
+            isActivated={props.isMobileMenuOpen}
+          />
+        </span>
+      </nav>
+    );
+  }
+);

@@ -1,10 +1,8 @@
 import Link from "next/link";
+import { memo } from "react";
 import style from "./Logo.module.scss";
 
-export default function Logo(props: {
-  href: string;
-  title: string;
-}): JSX.Element {
+function Logo(props: { href: string; title: string }): JSX.Element {
   return (
     <Link href={props.href} className={style.logo} title={props.title}>
       <svg
@@ -39,3 +37,5 @@ export default function Logo(props: {
     </Link>
   );
 }
+
+export default memo(Logo);
