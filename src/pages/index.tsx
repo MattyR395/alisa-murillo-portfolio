@@ -1,3 +1,4 @@
+import { supabase } from "@/lib/init-supabase";
 import { PortfolioItem } from "@/models/portfolio-item.model";
 import Masonry from "react-masonry-css";
 import PortfolioCard from "../components/PortfolioCard/PortfolioCard";
@@ -29,33 +30,29 @@ export default function Home(props: { portfolioItems: PortfolioItem[] }) {
   );
 }
 
-export async function getStaticProps() {
-  const items: {
-    title: string;
-    imagePath: string;
-    uri: string;
-    id: number;
-  }[] = [];
+export async function getServerSideProps(props: { locale: string }): Promise<{
+  props: { portfolioItems: PortfolioItem[] };
+}> {
+  const { data: portfolioItems, error: portfolioItemsError } = await supabase
+    .rpc("get_portfolio_items", { locale_id: props.locale })
+    .select("id, title, thumbUrl");
 
-  for (let i = 0; i < 20; i++) {
-    const height = randomIntFromInterval(340, 600);
-
-    items.push({
-      title: `Item ${i + 1}`,
-      imagePath: `http://via.placeholder.com/400x${height}`,
-      uri: "2",
-      id: i,
-    });
+  if (portfolioItemsError) {
+    throw new Error(portfolioItemsError.message);
   }
+
+  const items: PortfolioItem[] = portfolioItems.map(
+    ({ id, title, thumbUrl }) => ({
+      id,
+      title,
+      imagePath: thumbUrl,
+      uri: "2",
+    })
+  );
 
   return {
     props: {
       portfolioItems: items,
     },
   };
-}
-
-function randomIntFromInterval(min: number, max: number) {
-  // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min);
 }

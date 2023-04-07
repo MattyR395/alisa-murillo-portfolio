@@ -4,7 +4,7 @@ const { defaultLocale, locales } = require('./i18n.js');
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['via.placeholder.com', 'images.unsplash.com', 'media.licdn.com']
+    domains: ['via.placeholder.com', 'images.unsplash.com', 'media.licdn.com', 'alisamurillo.com']
   },
   i18n: {
     locales,
