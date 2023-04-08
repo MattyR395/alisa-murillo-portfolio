@@ -13,6 +13,7 @@ interface PortfolioItem {
 export default function AdminEditor(): JSX.Element {
   const { supabaseClient } = useSessionContext();
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+  const [isModalEditModalOpen, setIsModalEditModalOpen] = useState(false);
   const { locale } = useRouter();
 
   const getPortfolioItems = async () => {
@@ -37,7 +38,11 @@ export default function AdminEditor(): JSX.Element {
 
   return (
     <div className="card">
-      <Modal isOpen={true} onClose={() => {}} title="Modal Title">
+      <Modal
+        isOpen={isModalEditModalOpen}
+        onClose={() => setIsModalEditModalOpen(false)}
+        title="Modal Title"
+      >
         <div>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
           distinctio numquam at quos eaque quae et harum sunt repellat ex.
@@ -53,7 +58,11 @@ export default function AdminEditor(): JSX.Element {
           <div key={item.id} className={style["portfolio-item"]}>
             <div className={style["portfolio-item__title"]}>{item.title}</div>
             <div className={style["portfolio-item__actions"]}>
-              <button className={style["icon-button"]} title="Edit">
+              <button
+                className={style["icon-button"]}
+                title="Edit"
+                onClick={() => setIsModalEditModalOpen(true)}
+              >
                 <FaRegEdit />
               </button>
               <button className={style["icon-button"]} title="Delete">

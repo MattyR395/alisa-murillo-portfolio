@@ -1,4 +1,5 @@
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 import style from "./Modal.module.scss";
@@ -18,28 +19,42 @@ export function Modal(props: {
   }, [props.isOpen]);
 
   return (
-    <div className={style.modal}>
-      <div className={style.modal__dialog}>
-        <div className={style.modal__dialog__header}>
-          <h2>{props.title}</h2>
-
-          <button onClick={props.onClose} title="Close">
-            <FaTimes />
-          </button>
-        </div>
-        <div className={style.modal__dialog__body}>{props.children}</div>
-        <div className={style.modal__dialog__footer}>
-          <button
-            className="form-control form-control--secondary"
-            onClick={props.onClose}
+    <AnimatePresence>
+      {props.isOpen && (
+        <motion.div
+          className={style.modal}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className={style.modal__dialog}
+            initial={{ scale: 0.5 }}
+            animate={{ scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
           >
-            Cancel
-          </button>
-          <button className="form-control" style={{ minWidth: "5rem" }}>
-            Save
-          </button>
-        </div>
-      </div>
-    </div>
+            <div className={style.modal__dialog__header}>
+              <h2>{props.title}</h2>
+
+              <button onClick={props.onClose} title="Close">
+                <FaTimes />
+              </button>
+            </div>
+            <div className={style.modal__dialog__body}>{props.children}</div>
+            <div className={style.modal__dialog__footer}>
+              <button
+                className="form-control form-control--secondary"
+                onClick={props.onClose}
+              >
+                Cancel
+              </button>
+              <button className="form-control" style={{ minWidth: "5rem" }}>
+                Save
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
