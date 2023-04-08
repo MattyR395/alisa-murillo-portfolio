@@ -26,12 +26,16 @@ export function Modal(props: {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          onClick={props.onClose}
         >
           <motion.div
             className={style.modal__dialog}
             initial={{ scale: 0.5 }}
             animate={{ scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             <div className={style.modal__dialog__header}>
               <h2>{props.title}</h2>
