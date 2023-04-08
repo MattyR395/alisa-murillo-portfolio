@@ -98,6 +98,14 @@ button.form-control {
       animation: button-loading-spinner 1s ease infinite;
     }
   }
+
+  &--secondary {
+    background-color: transparent;
+    color: color("secondary");
+    border-color: transparent;
+    font-weight: 600;
+    min-width: 0;
+  }
 }
 
 .form-control-label {

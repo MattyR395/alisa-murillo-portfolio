@@ -1,0 +1,11 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  max-width: 23rem;
+  margin: 0 auto;
+
+  h1 {
+    text-align: center;
+  }
+}
