@@ -1,4 +1,5 @@
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
@@ -7,8 +8,10 @@ import style from "./Modal.module.scss";
 export function Modal(props: {
   children: React.ReactNode;
   onClose: () => void;
+  onPrimaryAction?: () => void;
   isOpen: boolean;
   title: string;
+  isLoading?: boolean;
 }): JSX.Element {
   useEffect(() => {
     if (props.isOpen) {
@@ -52,8 +55,16 @@ export function Modal(props: {
               >
                 Cancel
               </button>
-              <button className="form-control" style={{ minWidth: "5rem" }}>
-                Save
+              <button
+                onClick={props.onPrimaryAction}
+                disabled={props.isLoading}
+                className={clsx({
+                  "form-control": true,
+                  [style["is-loading"]]: props.isLoading,
+                })}
+                style={{ minWidth: "5rem" }}
+              >
+                <span>Save</span>
               </button>
             </div>
           </motion.div>

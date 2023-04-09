@@ -1,0 +1,45 @@
+@import "@/styles/functions/color";
+
+$border-width: 0.12rem;
+$border-radius: 0.6rem;
+
+.radio-group {
+  display: flex;
+
+  label {
+    user-select: none;
+    border: $border-width solid color("secondary");
+    color: color("secondary");
+
+    padding-inline: 0.5rem;
+    padding-block: 0.3rem;
+    min-width: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+
+    &:not(:last-of-type) {
+      border-inline-end: none;
+    }
+
+    &:last-of-type {
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+
+    &:first-of-type {
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+    }
+  }
+
+  input {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+
+    &:checked + label {
+      background: color("secondary");
+      color: color("secondary-text");
+    }
+  }
+}

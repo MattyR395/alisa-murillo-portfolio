@@ -7,9 +7,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: var(--gap-md);
+  margin-top: var(--gap-sm);
   border-radius: 0.5rem;
-  box-shadow: var(--box-shadow-main);
+  border: 1px solid color("bg-divider");
 
   &__actions {
     display: flex;
@@ -31,4 +31,8 @@
   &:hover {
     opacity: 1;
   }
+}
+
+.is-hidden {
+  display: none;
 }
