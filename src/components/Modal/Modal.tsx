@@ -60,7 +60,7 @@ export function Modal(props: {
                 disabled={props.isLoading}
                 className={clsx({
                   "form-control": true,
-                  [style["is-loading"]]: props.isLoading,
+                  "is-loading": props.isLoading,
                 })}
                 style={{ minWidth: "5rem" }}
               >
