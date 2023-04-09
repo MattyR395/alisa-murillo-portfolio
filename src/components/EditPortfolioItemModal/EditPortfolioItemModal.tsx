@@ -60,14 +60,37 @@ export default function EditPortfolioItemModal(props: {
     console.log("Updated!", data);
   };
 
+  const getModalFooter = () => {
+    return (
+      <>
+        <button
+          className="form-control form-control--secondary"
+          onClick={props.onClose}
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleSubmit(onSubmit)}
+          disabled={isLoading}
+          className={clsx({
+            "form-control": true,
+            "is-loading": isLoading,
+          })}
+          style={{ minWidth: "5rem" }}
+        >
+          <span>Save</span>
+        </button>
+      </>
+    );
+  };
+
   const getModal = () => {
     return (
       <Modal
         isOpen={props.isOpen}
         onClose={() => props.onClose()}
-        onPrimaryAction={handleSubmit(onSubmit)}
         title="Modal Title"
-        isLoading={isLoading}
+        footer={getModalFooter()}
       >
         <RadioTabs
           onChange={setSelectedLanguage}
