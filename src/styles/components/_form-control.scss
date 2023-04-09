@@ -106,6 +106,12 @@ button.form-control {
     font-weight: 600;
     min-width: 0;
   }
+
+  &--danger {
+    background-color: color("danger");
+    color: color("danger-text");
+    border-color: color("danger");
+  }
 }
 
 .form-control-label {

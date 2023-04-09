@@ -1,38 +1,3 @@
-@import "~@/styles/functions/color";
-
-.portfolio-item {
-  padding: var(--gap-sm) var(--gap-md);
-  background-color: color("bg-accent");
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: var(--gap-sm);
-  border-radius: 0.5rem;
-  border: 1px solid color("bg-divider");
-
-  &__actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--gap-sm);
-  }
-}
-
-.icon-button {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0.2rem;
-  color: color("bg-text");
-  opacity: 0.8;
-  transition: var(--transition-main);
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
 .is-hidden {
   display: none;
 }

@@ -10,6 +10,7 @@ export function Modal(props: {
   isOpen: boolean;
   title: string;
   footer: React.ReactNode;
+  maxWidth?: string;
 }): JSX.Element {
   useEffect(() => {
     if (props.isOpen) {
@@ -30,6 +31,7 @@ export function Modal(props: {
           onClick={props.onClose}
         >
           <motion.div
+            style={props.maxWidth ? { maxWidth: props.maxWidth } : {}}
             className={style.modal__dialog}
             initial={{ scale: 0.5 }}
             animate={{ scale: 1 }}
