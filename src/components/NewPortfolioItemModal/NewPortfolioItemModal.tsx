@@ -25,6 +25,7 @@ export default function NewPortfolioItemModal(props: {
       supabaseClient
     );
     setIsLoading(false);
+    props.onClose();
   };
 
   const getModalFooter = () => {

@@ -1,0 +1,30 @@
+@import "@/styles/functions/color";
+
+.validation-popup {
+  background-color: color("danger");
+  color: color("danger-text");
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.8rem;
+  position: relative;
+
+  &::before {
+    $arrow-width: 0.4rem;
+    content: "";
+    left: -$arrow-width + 0.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: $arrow-width solid transparent;
+    border-bottom: $arrow-width solid transparent;
+    border-right: $arrow-width solid color("danger");
+  }
+}
+
+.validation-popup-container {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+}
