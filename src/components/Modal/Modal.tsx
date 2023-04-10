@@ -14,9 +14,9 @@ export function Modal(props: {
 }): JSX.Element {
   useEffect(() => {
     if (props.isOpen) {
-      enableBodyScroll(document.body);
-    } else {
       disableBodyScroll(document.body);
+    } else {
+      enableBodyScroll(document.body);
     }
   }, [props.isOpen]);
 

@@ -47,14 +47,14 @@ export default function PortfolioItemBar(props: {
         <div className={style["portfolio-item__title"]}>{props.title}</div>
         <div className={style["portfolio-item__actions"]}>
           <button
-            className={style["icon-button"]}
+            className="form-control form-control--icon"
             title="Edit"
             onClick={() => setIsEditModalOpen(true)}
           >
             <FaRegEdit />
           </button>
           <button
-            className={style["icon-button"]}
+            className="form-control form-control--icon"
             title="Delete"
             onClick={() => setIsDeleteModalOpen(true)}
           >

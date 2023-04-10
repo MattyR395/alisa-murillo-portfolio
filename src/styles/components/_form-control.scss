@@ -118,10 +118,11 @@ button.form-control {
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
-    padding: 0.2rem;
+    padding: 0.4rem;
     color: color("bg-text");
     opacity: 0.8;
     transition: var(--transition-main);
+    min-height: auto;
 
     &:hover {
       opacity: 1;
