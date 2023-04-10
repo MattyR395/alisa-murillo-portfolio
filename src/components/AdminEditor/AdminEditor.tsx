@@ -1,3 +1,4 @@
+import { useAdminAppStore } from "@/store/admin-store";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -6,19 +7,18 @@ import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import NewPortfolioItemModal from "../NewPortfolioItemModal/NewPortfolioItemModal";
 import PortfolioItemBar from "../PortfolioItemBar/PortfolioItemBar";
 
-interface PortfolioItem {
-  id: number;
-  title: string;
-}
-
 export default function AdminEditor(): JSX.Element {
   const { locale } = useRouter();
   const { supabaseClient } = useSessionContext();
-  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+  const {
+    items: portfolioItems,
+    setItems: setPortfolioItems,
+    isLoading: arePortfolioItemsLoading,
+    setIsLoading: setArePortfolioItemsLoading,
+  } = useAdminAppStore((state) => state.portfolioItems);
+
   const [isNewPortfolioItemModalOpen, setIsNewPortfolioItemModalOpen] =
     useState(false);
-  const [arePortfolioItemsLoading, setArePortfolioItemsLoading] =
-    useState(true);
 
   const getPortfolioItems = async () => {
     setArePortfolioItemsLoading(true);

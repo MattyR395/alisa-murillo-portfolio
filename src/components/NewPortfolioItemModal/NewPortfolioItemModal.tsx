@@ -1,7 +1,11 @@
-import { addPortfolioItem } from "@/lib/add-portfolio-item";
+import { getAdminPortfolioItem } from "@/lib/get-portfolio-item";
+import { insertPortfolioItem } from "@/lib/insert-portfolio-item";
+import { useAdminAppStore } from "@/store/admin-store";
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import Button from "../Button/Button";
+import ImageUploader from "../ImageUploader/ImageUploader";
 import { Modal } from "../Modal/Modal";
 import PortfolioItemForm, {
   PortfolioItemFormFields,
@@ -11,12 +15,16 @@ export default function NewPortfolioItemModal(props: {
   isOpen: boolean;
   onClose: () => void;
 }): JSX.Element {
+  const { locale } = useRouter();
   const { supabaseClient } = useSessionContext();
   const [isLoading, setIsLoading] = useState(false);
+  const { addItem: addPortfolioItem } = useAdminAppStore(
+    (state) => state.portfolioItems
+  );
 
   const onSubmit = async (data: PortfolioItemFormFields) => {
     setIsLoading(true);
-    await addPortfolioItem(
+    const newItemId = await insertPortfolioItem(
       {
         thumbUrl:
           "https://alisamurillo.com/resource/img/portfolio/breaktherules/1/md.jpg",
@@ -24,6 +32,19 @@ export default function NewPortfolioItemModal(props: {
       },
       supabaseClient
     );
+
+    /**
+     * If the new item was successfully created, fetch and add it to the state.
+     */
+    if (newItemId) {
+      const newItem = await getAdminPortfolioItem(
+        newItemId,
+        locale!,
+        supabaseClient
+      );
+      newItem && addPortfolioItem(newItem);
+    }
+
     setIsLoading(false);
     props.onClose();
   };
@@ -55,6 +76,10 @@ export default function NewPortfolioItemModal(props: {
         footer={getModalFooter()}
       >
         <PortfolioItemForm onSubmit={onSubmit} />
+
+        <hr />
+
+        <ImageUploader />
       </Modal>
     );
   };

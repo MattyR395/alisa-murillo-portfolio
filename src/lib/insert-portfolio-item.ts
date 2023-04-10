@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
-export const addPortfolioItem = async (
+export const insertPortfolioItem = async (
   portfolioItem: {
     thumbUrl: string;
     translations: {
@@ -10,7 +10,7 @@ export const addPortfolioItem = async (
     }[];
   },
   supabaseClient: SupabaseClient
-): Promise<void> => {
+): Promise<number | undefined> => {
   try {
     const { data: portolioItemResult, error: portfolioItemError } =
       await supabaseClient
@@ -36,6 +36,8 @@ export const addPortfolioItem = async (
     if (translationsError) {
       throw translationsError;
     }
+
+    return portolioItemResult[0].id;
   } catch (error) {
     console.error(error);
   }

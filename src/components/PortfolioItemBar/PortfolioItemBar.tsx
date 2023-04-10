@@ -1,4 +1,5 @@
 import { deletePortfolioItem } from "@/lib/delete-portfolio-item";
+import { useAdminAppStore } from "@/store/admin-store";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
@@ -14,14 +15,21 @@ export default function PortfolioItemBar(props: {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const { supabaseClient } = useSessionContext();
+  const { deleteItem: deletePortfolioItemState } = useAdminAppStore(
+    (state) => state.portfolioItems
+  );
 
   const handleDelete = () => {
     setIsDeleteLoading(true);
 
-    deletePortfolioItem(props.id, supabaseClient).finally(() => {
-      setIsDeleteLoading(false);
-      setIsDeleteModalOpen(false);
-    });
+    deletePortfolioItem(props.id, supabaseClient)
+      .then(() => {
+        deletePortfolioItemState(props.id);
+      })
+      .finally(() => {
+        setIsDeleteLoading(false);
+        setIsDeleteModalOpen(false);
+      });
   };
 
   return (

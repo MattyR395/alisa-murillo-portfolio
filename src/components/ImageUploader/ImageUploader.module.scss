@@ -1,0 +1,45 @@
+@import "@/styles/functions/color";
+
+.image-uploader {
+  border: 0.12rem dashed color("secondary", 0deg, 0%, 0%, -0.75);
+
+  background-color: color("secondary", 0deg, 0%, 0%, -0.95);
+  color: color("bg-subtext");
+  padding: 1rem;
+  text-align: center;
+  border-radius: var(--border-radius-primary);
+  cursor: pointer;
+  min-height: 7rem;
+  align-items: center;
+
+  &__message {
+    text-align: center;
+    width: 100%;
+  }
+
+  &:hover {
+    border-color: color("secondary", 0deg, 0%, 0%, -0.4);
+  }
+
+  padding-top: var(--gap-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-md);
+
+  &__thumb {
+    position: relative;
+
+    &__delete {
+      position: absolute !important;
+      top: 0;
+      right: 0;
+      width: min-content;
+      opacity: 1 !important;
+    }
+
+    img {
+      border-radius: 0.4rem;
+      max-height: 5rem;
+    }
+  }
+}

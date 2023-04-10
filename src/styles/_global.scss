@@ -94,3 +94,9 @@ p {
 .is-hidden {
   display: none;
 }
+
+hr {
+  margin: var(--gap-md) 0;
+  border: none;
+  border-bottom: 0.12rem solid color("bg-divider");
+}
