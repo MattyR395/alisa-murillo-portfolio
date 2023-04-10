@@ -2,6 +2,7 @@ import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import NewPortfolioItemModal from "../NewPortfolioItemModal/NewPortfolioItemModal";
 import PortfolioItemBar from "../PortfolioItemBar/PortfolioItemBar";
 
@@ -16,8 +17,11 @@ export default function AdminEditor(): JSX.Element {
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
   const [isNewPortfolioItemModalOpen, setIsNewPortfolioItemModalOpen] =
     useState(false);
+  const [arePortfolioItemsLoading, setArePortfolioItemsLoading] =
+    useState(true);
 
   const getPortfolioItems = async () => {
+    setArePortfolioItemsLoading(true);
     const { data, error } = await supabaseClient
       .rpc("get_portfolio_items", { locale_id: locale })
       .select("id, title, thumbUrl");
@@ -27,6 +31,7 @@ export default function AdminEditor(): JSX.Element {
     }
 
     setPortfolioItems(data);
+    setArePortfolioItemsLoading(false);
   };
 
   useEffect(() => {
@@ -50,6 +55,8 @@ export default function AdminEditor(): JSX.Element {
           onClose={() => setIsNewPortfolioItemModalOpen(false)}
         />
       </div>
+
+      <LoadingIndicator isVisible={arePortfolioItemsLoading} />
 
       {portfolioItems.map((item) => {
         return (

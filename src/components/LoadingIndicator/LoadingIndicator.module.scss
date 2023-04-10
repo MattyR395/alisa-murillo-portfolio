@@ -1,20 +1,12 @@
 @import "@/styles/functions/color";
 
 .spinner {
-  margin: 2.5rem auto 0;
-  position: absolute;
+  margin: 2.5rem 0;
   z-index: 102;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
+  justify-content: center;
   gap: 0.1rem;
-  opacity: 0;
-  transition: var(--transition-main);
   pointer-events: none;
-
-  &--visible {
-    opacity: 1;
-  }
 
   > div {
     width: 1.2rem;
