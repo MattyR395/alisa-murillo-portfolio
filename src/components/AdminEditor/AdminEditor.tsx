@@ -1,6 +1,7 @@
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { FaPlus } from "react-icons/fa";
 import PortfolioItemBar from "../PortfolioItemBar/PortfolioItemBar";
 
 interface PortfolioItem {
@@ -35,9 +36,13 @@ export default function AdminEditor(): JSX.Element {
 
   return (
     <div className="card">
-      <button className="form-control" onClick={signOut}>
-        Sign out
-      </button>
+      <div className="card__header">
+        <h1>Portfolio items</h1>
+
+        <button className="form-control form-control--icon">
+          <FaPlus />
+        </button>
+      </div>
 
       {portfolioItems.map((item) => {
         return (

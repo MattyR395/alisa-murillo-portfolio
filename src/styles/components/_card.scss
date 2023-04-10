@@ -3,4 +3,19 @@
   background: color("bg-accent");
   border-radius: 1.4rem;
   box-shadow: var(--box-shadow-main);
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-block-end: var(--gap-sm);
+
+    h1 {
+      font-size: 1.7rem;
+
+      & + * {
+        width: auto;
+      }
+    }
+  }
 }
