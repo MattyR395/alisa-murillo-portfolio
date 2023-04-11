@@ -3,15 +3,31 @@ import { useDropzone } from "react-dropzone";
 import { FaTrashAlt } from "react-icons/fa";
 import style from "./ImageUploader.module.scss";
 
+export type ImageFile = File & {
+  preview: string;
+};
+
 export default function ImageUploader(props: {
   isDirty: (isDirty: boolean) => void;
+  onUpdate: (files: ImageFile[]) => void;
 }): JSX.Element {
-  const [files, setFiles] = useState<
-    {
-      preview: string;
-      name: string;
-    }[]
-  >([]);
+  const [files, setFiles] = useState<ImageFile[]>([]);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [".png", ".jpg", ".jpeg", ".webp"],
+    },
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+    maxSize: 15000000, // 15MB
+  });
 
   /**
    * Removes image from the list.
@@ -26,24 +42,10 @@ export default function ImageUploader(props: {
     setFiles(newFiles);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: {
-      "image/*": [],
-    },
-    onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
-      );
-    },
-  });
-
   useEffect(() => {
     props.isDirty(!!files.length);
-  }, [files.length]);
+    props.onUpdate(files);
+  }, [files]);
 
   const thumbnails = files.map((file, i) => (
     <div className={style["image-uploader__thumb"]} key={file.name}>

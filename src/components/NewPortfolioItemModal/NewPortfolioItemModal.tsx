@@ -1,11 +1,12 @@
 import { getAdminPortfolioItem } from "@/lib/get-portfolio-item";
 import { insertPortfolioItem } from "@/lib/insert-portfolio-item";
+import { insertFilePaths, uploadFiles } from "@/lib/upload-files";
 import { useAdminAppStore } from "@/store/admin-store";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Button from "../Button/Button";
-import ImageUploader from "../ImageUploader/ImageUploader";
+import ImageUploader, { ImageFile } from "../ImageUploader/ImageUploader";
 import { Modal } from "../Modal/Modal";
 import PortfolioItemForm, {
   PortfolioItemFormFields,
@@ -23,6 +24,7 @@ export default function NewPortfolioItemModal(props: {
   const [isLoading, setIsLoading] = useState(false);
   const [isFormDirty, setIsFormDirty] = useState(false);
   const [isImageUploadDirty, setIsImageUploadDirty] = useState(false);
+  const [images, setImages] = useState<ImageFile[]>([]);
 
   const onSubmit = async (data: PortfolioItemFormFields) => {
     setIsLoading(true);
@@ -44,6 +46,10 @@ export default function NewPortfolioItemModal(props: {
         locale!,
         supabaseClient
       );
+
+      // Upload the images and insert the file paths into the database.
+      await uploadImages(newItemId);
+
       newItem && addPortfolioItem(newItem);
     }
 
@@ -51,6 +57,19 @@ export default function NewPortfolioItemModal(props: {
     props.onClose();
   };
 
+  /**
+   * Uploads the images and inserts the file paths into the database.
+   *
+   * @param portfolioItemId ID of the portfolio item to associate the images with.
+   */
+  const uploadImages = async (portfolioItemId: number): Promise<void> => {
+    const { paths } = await uploadFiles(images, supabaseClient);
+    await insertFilePaths(portfolioItemId, paths, supabaseClient);
+  };
+
+  /**
+   * If there are unsaved changes, ask the user if they want to close the modal before doing so.
+   */
   const tryClosing = () => {
     if (isFormDirty || isImageUploadDirty) {
       if (
@@ -98,7 +117,10 @@ export default function NewPortfolioItemModal(props: {
 
         <hr />
 
-        <ImageUploader isDirty={(isDirty) => setIsImageUploadDirty(isDirty)} />
+        <ImageUploader
+          isDirty={(isDirty) => setIsImageUploadDirty(isDirty)}
+          onUpdate={(images) => setImages(images)}
+        />
       </Modal>
     );
   };
