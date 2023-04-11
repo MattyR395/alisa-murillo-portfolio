@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import RadioTabs from "../RadioTabs/RadioTabs";
 import ValidationTooltip from "../ValidationTooltip/ValidationTooltip";
@@ -16,14 +16,32 @@ export interface PortfolioItemFormFields {
 
 export default function PortfolioItemForm(props: {
   onSubmit: (data: PortfolioItemFormFields) => void;
+  isDirty: (isDirty: boolean) => void;
 }): JSX.Element {
+  const { locales } = useRouter();
+
+  // For comparison, we must set the initial values for each locale.
+  const initialValues: PortfolioItemFormFields = {};
+  locales!.forEach((locale) => {
+    initialValues[locale] = {
+      title: "",
+      description: "",
+      localeId: locale,
+    };
+  });
+
   const {
     handleSubmit,
     register,
-    formState: { errors },
-  } = useForm<PortfolioItemFormFields>();
-  const { locales } = useRouter();
+    formState: { errors, isDirty },
+  } = useForm<PortfolioItemFormFields>({
+    defaultValues: initialValues,
+  });
   const [selectedLanguage, setSelectedLanguage] = useState(locales![0]);
+
+  useEffect(() => {
+    props.isDirty(isDirty);
+  }, [isDirty]);
 
   return (
     <>

@@ -17,10 +17,12 @@ export default function NewPortfolioItemModal(props: {
 }): JSX.Element {
   const { locale } = useRouter();
   const { supabaseClient } = useSessionContext();
-  const [isLoading, setIsLoading] = useState(false);
   const { addItem: addPortfolioItem } = useAdminAppStore(
     (state) => state.portfolioItems
   );
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFormDirty, setIsFormDirty] = useState(false);
+  const [isImageUploadDirty, setIsImageUploadDirty] = useState(false);
 
   const onSubmit = async (data: PortfolioItemFormFields) => {
     setIsLoading(true);
@@ -49,10 +51,24 @@ export default function NewPortfolioItemModal(props: {
     props.onClose();
   };
 
+  const tryClosing = () => {
+    if (isFormDirty || isImageUploadDirty) {
+      if (
+        confirm(
+          "You have unsaved changes. Are you sure you want to close this window?"
+        )
+      ) {
+        props.onClose();
+      }
+    } else {
+      props.onClose();
+    }
+  };
+
   const getModalFooter = () => {
     return (
       <>
-        <Button onClick={props.onClose} style="secondary">
+        <Button onClick={tryClosing} style="secondary">
           Cancel
         </Button>
 
@@ -71,15 +87,18 @@ export default function NewPortfolioItemModal(props: {
     return (
       <Modal
         isOpen={props.isOpen}
-        onClose={() => props.onClose()}
+        onClose={() => tryClosing()}
         title="New portfolio item"
         footer={getModalFooter()}
       >
-        <PortfolioItemForm onSubmit={onSubmit} />
+        <PortfolioItemForm
+          onSubmit={onSubmit}
+          isDirty={(isDirty) => setIsFormDirty(isDirty)}
+        />
 
         <hr />
 
-        <ImageUploader />
+        <ImageUploader isDirty={(isDirty) => setIsImageUploadDirty(isDirty)} />
       </Modal>
     );
   };

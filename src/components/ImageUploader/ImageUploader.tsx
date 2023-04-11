@@ -3,38 +3,9 @@ import { useDropzone } from "react-dropzone";
 import { FaTrashAlt } from "react-icons/fa";
 import style from "./ImageUploader.module.scss";
 
-const thumbsContainer = {
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  marginTop: 16,
-};
-
-const thumb = {
-  display: "inline-flex",
-  borderRadius: 2,
-  border: "1px solid #eaeaea",
-  marginBottom: 8,
-  marginRight: 8,
-  width: 100,
-  height: 100,
-  padding: 4,
-  boxSizing: "border-box",
-};
-
-const thumbInner = {
-  display: "flex",
-  minWidth: 0,
-  overflow: "hidden",
-};
-
-const img = {
-  display: "block",
-  width: "auto",
-  height: "100%",
-};
-
-export default function ImageUploader(): JSX.Element {
+export default function ImageUploader(props: {
+  isDirty: (isDirty: boolean) => void;
+}): JSX.Element {
   const [files, setFiles] = useState<
     {
       preview: string;
@@ -69,6 +40,10 @@ export default function ImageUploader(): JSX.Element {
       );
     },
   });
+
+  useEffect(() => {
+    props.isDirty(!!files.length);
+  }, [files.length]);
 
   const thumbnails = files.map((file, i) => (
     <div className={style["image-uploader__thumb"]} key={file.name}>
