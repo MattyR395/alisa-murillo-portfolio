@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaTrashAlt } from "react-icons/fa";
 import style from "./ImageUploader.module.scss";
@@ -41,6 +41,20 @@ export default function ImageUploader(): JSX.Element {
       name: string;
     }[]
   >([]);
+
+  /**
+   * Removes image from the list.
+   *
+   * @param index index of the image to remove.
+   */
+  const handleImageDelete = (event: MouseEvent, index: number) => {
+    event.stopPropagation();
+
+    const newFiles = [...files];
+    newFiles.splice(index, 1);
+    setFiles(newFiles);
+  };
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       "image/*": [],
@@ -56,9 +70,10 @@ export default function ImageUploader(): JSX.Element {
     },
   });
 
-  const thumbnails = files.map((file) => (
+  const thumbnails = files.map((file, i) => (
     <div className={style["image-uploader__thumb"]} key={file.name}>
       <button
+        onClick={(e) => handleImageDelete(e, i)}
         className={`form-control form-control--icon ${style["image-uploader__thumb__delete"]}`}
       >
         <FaTrashAlt />
