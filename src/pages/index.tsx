@@ -30,11 +30,11 @@ export default function Home(props: { portfolioItems: PortfolioItem[] }) {
   );
 }
 
-export async function getServerSideProps(props: { locale: string }): Promise<{
+export async function getServerSideProps(context: { locale: string }): Promise<{
   props: { portfolioItems: PortfolioItem[] };
 }> {
   const { data: portfolioItems, error: portfolioItemsError } = await supabase
-    .rpc("get_portfolio_items", { locale_id: props.locale })
+    .rpc("get_portfolio_items", { locale_id: context.locale })
     .select("id, title, thumbUrl");
 
   if (portfolioItemsError) {
@@ -43,10 +43,10 @@ export async function getServerSideProps(props: { locale: string }): Promise<{
 
   const items: PortfolioItem[] = portfolioItems.map(
     ({ id, title, thumbUrl }) => ({
-      id,
+      id: +id,
       title,
       imagePath: thumbUrl,
-      uri: "2",
+      uri: id,
     })
   );
 

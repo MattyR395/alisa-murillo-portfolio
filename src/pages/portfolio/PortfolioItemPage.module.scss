@@ -1,0 +1,22 @@
+.portfolio-item-page {
+  display: grid;
+  grid-template-columns: min-content auto;
+  gap: var(--gap-lg);
+
+  section {
+    min-width: 20rem;
+    position: sticky;
+    top: 8rem;
+  }
+
+  aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

@@ -13,12 +13,7 @@ export const insertPortfolioItem = async (
 ): Promise<number | undefined> => {
   try {
     const { data: portolioItemResult, error: portfolioItemError } =
-      await supabaseClient
-        .from("portfolioItems")
-        .insert({
-          thumbUrl: portfolioItem.thumbUrl,
-        })
-        .select();
+      await supabaseClient.from("portfolioItems").insert({}).select();
 
     if (portfolioItemError) {
       throw portfolioItemError;
