@@ -34,8 +34,7 @@ $border-radius: 0.6rem;
 
   input {
     position: absolute;
-    left: -9999px;
-    top: -9999px;
+    visibility: hidden;
 
     &:checked + label {
       background: color("secondary");
