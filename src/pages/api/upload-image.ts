@@ -24,11 +24,27 @@ export const config = {
   },
 };
 
+/**
+ * Check if the request body has all the required fields.
+ */
+const checkBadRequest = (
+  req: ExtendedNextApiRequest,
+  res: NextApiResponse
+): void => {
+  const { image, portfolioItemId } = req.body;
+
+  if (!image || !portfolioItemId) {
+    res.status(400).json({ message: "Bad request" });
+  }
+};
+
 const handler = async (
   req: ExtendedNextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
   if (req.method === "POST") {
+    checkBadRequest(req, res);
+
     const supabaseServerClient = createServerSupabaseClient<Database>({
       req,
       res,

@@ -31,8 +31,6 @@ export default function NewPortfolioItemModal(props: {
     setIsLoading(true);
     const newItemId = await insertPortfolioItem(
       {
-        thumbUrl:
-          "https://alisamurillo.com/resource/img/portfolio/breaktherules/1/md.jpg",
         translations: Object.values(data),
       },
       supabaseClient

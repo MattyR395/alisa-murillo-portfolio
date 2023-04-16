@@ -2,7 +2,6 @@ import { SupabaseClient } from "@supabase/supabase-js";
 
 export const insertPortfolioItem = async (
   portfolioItem: {
-    thumbUrl: string;
     translations: {
       localeId: string;
       title: string;
