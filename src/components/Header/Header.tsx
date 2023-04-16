@@ -1,11 +1,13 @@
 import { navLinks } from "@/constants/nav-links";
 import { useAppStore } from "@/store/store";
+import { useSessionContext } from "@supabase/auth-helpers-react";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import clsx from "clsx";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { memo, useEffect, useRef, useState } from "react";
+import AdminHeader from "../AdminHeader/AdminHeader";
 import HamburgerButton from "../HamburgerButton/HamburgerButton";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import Logo from "../Logo/Logo";
@@ -15,6 +17,7 @@ export default function Header(): JSX.Element {
   const [headerHeight, setHeaderHeight] = useState(0);
   const [isBodyScrolled, setIsBodyScrolled] = useState(false);
   const { isMobileMenuOpen, toggleMobileMenu } = useAppStore((state) => state);
+  const { session, isLoading: isSessionLoading } = useSessionContext();
 
   const headerHeightRef = useRef<HTMLDivElement>(null);
 
@@ -55,6 +58,8 @@ export default function Header(): JSX.Element {
       <HamburgerMenu isOpen={isMobileMenuOpen} headerHeightPx={headerHeight} />
 
       <div>
+        {!isSessionLoading && session && <AdminHeader />}
+
         <div
           style={{
             height: `${headerHeight}px`,

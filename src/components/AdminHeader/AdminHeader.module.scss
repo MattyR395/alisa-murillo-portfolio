@@ -1,0 +1,35 @@
+@import "@/styles/functions/color";
+
+.admin-header {
+  display: flex;
+  gap: var(--gap-md);
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  position: relative;
+  z-index: 101;
+
+  a,
+  button {
+    border: none;
+    background-color: transparent;
+    border-width: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    line-height: inherit;
+    padding: 0;
+    font-weight: 600;
+    color: color("secondary");
+    cursor: pointer;
+    opacity: 0.8;
+    transition: var(--transition-main);
+    display: flex;
+    gap: var(--gap-xs);
+    align-items: center;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

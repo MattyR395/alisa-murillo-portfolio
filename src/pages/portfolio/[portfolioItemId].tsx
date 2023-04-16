@@ -19,7 +19,6 @@ interface PortfolioItemPageProps {
 export default function PortfolioItemPage(
   props: PortfolioItemPageProps
 ): JSX.Element {
-  console.log(props);
   const { title, description, images } = props.portfolioItem;
 
   return (

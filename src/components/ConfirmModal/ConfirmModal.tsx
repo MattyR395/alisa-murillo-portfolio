@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import Button from "../Button/Button";
 import { Modal } from "../Modal/Modal";
 
 export default function ConfirmModal(props: {
@@ -24,24 +24,12 @@ export default function ConfirmModal(props: {
   const getModalFooter = () => {
     return (
       <>
-        <button
-          className="form-control form-control--secondary"
-          onClick={onClose}
-        >
+        <Button onClick={onClose} style="secondary">
           Cancel
-        </button>
-        <button
-          onClick={onConfirm}
-          disabled={isLoading}
-          className={clsx({
-            "form-control": true,
-            "form-control--danger": props.isActionDestuctive,
-            "is-loading": isLoading,
-          })}
-          style={{ minWidth: "5rem" }}
-        >
-          <span>{confirmText}</span>
-        </button>
+        </Button>
+        <Button isLoading={isLoading} onClick={onConfirm} style="danger">
+          {confirmText}
+        </Button>
       </>
     );
   };
