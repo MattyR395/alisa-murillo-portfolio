@@ -1,8 +1,7 @@
 import { getAdminPortfolioItem } from "@/lib/get-portfolio-item";
 import { insertPortfolioItem } from "@/lib/insert-portfolio-item";
-import { UploadImageRequestBody } from "@/pages/api/upload-image";
+import { insertFilePath, resizeFile, uploadFile } from "@/lib/upload-files";
 import { useAdminAppStore } from "@/store/admin-store";
-import { fileToBase64 } from "@/utils/file-to-base64";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -63,20 +62,9 @@ export default function NewPortfolioItemModal(props: {
    */
   const uploadImages = async (portfolioItemId: number): Promise<void> => {
     for (const image of images) {
-      const requestBody: UploadImageRequestBody = {
-        portfolioItemId,
-        image: await fileToBase64(image),
-      };
-
-      await fetch("/api/upload-image", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      }).then((res) => {
-        console.log("AAAA", res);
-      });
+      const resizedImage = await resizeFile(image);
+      const uploadedPath = await uploadFile(resizedImage, supabaseClient);
+      insertFilePath(portfolioItemId, uploadedPath, supabaseClient);
     }
   };
 

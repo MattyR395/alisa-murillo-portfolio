@@ -1,4 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
+import Resizer from "react-image-file-resizer";
 import { v4 as uuidv4 } from "uuid";
 
 /**
@@ -11,36 +12,25 @@ import { v4 as uuidv4 } from "uuid";
  *   - `paths` - An array of paths to for uploaded files.
  *   - `errors` - An array of any errors that occurred during the upload.
  */
-export const uploadFiles = async (
-  files: File[],
+export const uploadFile = async (
+  file: File,
   supabaseClient: SupabaseClient
-): Promise<{
-  paths: string[];
-  errors: any[];
-}> => {
-  const errors = [];
-  const uploadData = [];
+): Promise<string> => {
+  const name = uuidv4();
 
-  for (const file of files) {
-    const name = uuidv4();
+  const { data, error } = await supabaseClient.storage
+    .from("images")
+    .upload(`public/${name}`, file);
 
-    const { data, error } = await supabaseClient.storage
-      .from("images")
-      .upload(`public/${name}`, file);
-
-    if (data) {
-      uploadData.push(data);
-    }
-
-    if (error) {
-      errors.push(error);
-    }
+  if (error) {
+    throw error;
   }
 
-  return {
-    paths: uploadData.map((data) => data.path),
-    errors,
-  };
+  if (data) {
+    return data.path;
+  }
+
+  throw new Error("No data returned from upload");
 };
 
 /**
@@ -51,24 +41,45 @@ export const uploadFiles = async (
  * @param paths Array of paths to insert into the images table.
  * @param supabaseClient Supabase client use for the insert.
  */
-export const insertFilePaths = async (
+export const insertFilePath = async (
   portfolioItemId: number,
-  paths: string[],
-  supabaseClient: SupabaseClient
+  path: string,
+  supabaseClient: SupabaseClient,
+  displayOrder: number = 0
 ): Promise<void> => {
   const {
-    data: { publicUrl },
-  } = supabaseClient.storage.from("images").getPublicUrl("");
+    data: { publicUrl: imageUrl },
+  } = supabaseClient.storage.from("images").getPublicUrl(path);
 
-  const { error } = await supabaseClient.from("images").insert(
-    paths.map((path, i) => ({
-      portfolioItemId,
-      displayOrder: i,
-      imageUrl: `${publicUrl}${path}`,
-    }))
-  );
+  const { error } = await supabaseClient.from("images").insert({
+    portfolioItemId,
+    displayOrder,
+    imageUrl,
+  });
 
   if (error) {
     throw error;
   }
+};
+
+export const resizeFile = (file: File): Promise<File> => {
+  const maxWidth: number = 2000;
+  const maxHeight: number = 3000;
+  const format = "WEBP";
+  const quality: number = 90;
+
+  return new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      maxWidth,
+      maxHeight,
+      format,
+      quality,
+      0,
+      (uri) => {
+        resolve(uri as File);
+      },
+      "file"
+    );
+  });
 };
