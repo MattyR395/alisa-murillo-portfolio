@@ -1,6 +1,4 @@
-import { deletePortfolioItem } from "@/lib/delete-portfolio-item";
 import { useAdminAppStore } from "@/store/admin-store";
-import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
@@ -14,7 +12,6 @@ export default function PortfolioItemBar(props: {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
-  const { supabaseClient } = useSessionContext();
   const { deleteItem: deletePortfolioItemState } = useAdminAppStore(
     (state) => state.portfolioItems
   );
@@ -22,9 +19,13 @@ export default function PortfolioItemBar(props: {
   const handleDelete = () => {
     setIsDeleteLoading(true);
 
-    deletePortfolioItem(props.id, supabaseClient)
-      .then(() => {
-        deletePortfolioItemState(props.id);
+    fetch(`/api/delete-portfolio-item/${props.id}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (res.ok) {
+          deletePortfolioItemState(props.id);
+        }
       })
       .finally(() => {
         setIsDeleteLoading(false);
