@@ -1,8 +1,11 @@
+import emptyStateImage from "@/../public/portfolio-items-empty-state.svg";
 import { useAdminAppStore } from "@/store/admin-store";
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import EmptyState from "../EmptyState/EmptyState";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import NewPortfolioItemModal from "../NewPortfolioItemModal/NewPortfolioItemModal";
 import PortfolioItemBar from "../PortfolioItemBar/PortfolioItemBar";
@@ -55,6 +58,13 @@ export default function AdminEditor(): JSX.Element {
           onClose={() => setIsNewPortfolioItemModalOpen(false)}
         />
       </div>
+
+      <EmptyState
+        isVisible={!portfolioItems.length && !arePortfolioItemsLoading}
+        icon={<Image src={emptyStateImage} alt="Add a portfolio item" />}
+        title="Looking empty!"
+        description="Start adding portfolio items using the button above."
+      />
 
       <LoadingIndicator isVisible={arePortfolioItemsLoading} />
 
