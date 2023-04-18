@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import EmptyState from "../EmptyState/EmptyState";
+import LoadingContainer from "../LoadingContainer/LoadingContainer";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import NewPortfolioItemModal from "../NewPortfolioItemModal/NewPortfolioItemModal";
 import PortfolioItemBar from "../PortfolioItemBar/PortfolioItemBar";
@@ -59,20 +60,26 @@ export default function AdminEditor(): JSX.Element {
         />
       </div>
 
-      <EmptyState
-        isVisible={!portfolioItems.length && !arePortfolioItemsLoading}
-        icon={<Image src={emptyStateImage} alt="Add a portfolio item" />}
-        title="Looking empty!"
-        description="Start adding portfolio items using the button above."
-      />
-
-      <LoadingIndicator isVisible={arePortfolioItemsLoading} />
-
-      {portfolioItems.map((item) => {
-        return (
-          <PortfolioItemBar key={item.id} id={item.id} title={item.title} />
-        );
-      })}
+      <LoadingContainer
+        isLoading={arePortfolioItemsLoading}
+        isEmpty={!portfolioItems.length}
+        height="16rem"
+        emptyState={
+          <EmptyState
+            isVisible={!portfolioItems.length && !arePortfolioItemsLoading}
+            icon={<Image src={emptyStateImage} alt="Add a portfolio item" />}
+            title="Looking empty!"
+            description="Start adding portfolio items using the button above."
+          />
+        }
+        loadingState={<LoadingIndicator isVisible={true} />}
+      >
+        {portfolioItems.map((item) => {
+          return (
+            <PortfolioItemBar key={item.id} id={item.id} title={item.title} />
+          );
+        })}
+      </LoadingContainer>
     </div>
   );
 }
