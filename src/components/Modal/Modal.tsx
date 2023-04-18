@@ -18,6 +18,10 @@ export function Modal(props: {
     } else {
       enableBodyScroll(document.body);
     }
+
+    return () => {
+      enableBodyScroll(document.body);
+    };
   }, [props.isOpen]);
 
   return (
