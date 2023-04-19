@@ -1,5 +1,8 @@
 import { supabase } from "@/lib/init-supabase";
 import Image from "next/image";
+import { useState } from "react";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 import style from "./PortfolioItemPage.module.scss";
 
 export interface PortfolioItemDetail {
@@ -20,28 +23,41 @@ export default function PortfolioItemPage(
   props: PortfolioItemPageProps
 ): JSX.Element {
   const { title, description, images } = props.portfolioItem;
+  const [lightBoxIndex, setLightboxIndex] = useState(-1);
 
   return (
-    <div className={style["portfolio-item-page"]}>
-      <div>
-        <section>
-          <h1>{title}</h1>
-          <p>{description}</p>
-        </section>
-      </div>
+    <>
+      <Lightbox
+        open={lightBoxIndex !== -1}
+        index={lightBoxIndex}
+        close={() => setLightboxIndex(-1)}
+        slides={images.map((image) => ({
+          src: image.imageUrl,
+          alt: title,
+        }))}
+      />
+      <div className={style["portfolio-item-page"]}>
+        <div>
+          <section>
+            <h1>{title}</h1>
+            <p>{description}</p>
+          </section>
+        </div>
 
-      <aside>
-        {images.map((image) => (
-          <Image
-            key={image.id}
-            src={image.imageUrl}
-            alt={title}
-            width={500}
-            height={600}
-          />
-        ))}
-      </aside>
-    </div>
+        <aside>
+          {images.map((image, i) => (
+            <Image
+              onClick={() => setLightboxIndex(i)}
+              key={image.id}
+              src={image.imageUrl}
+              alt={title}
+              width={500}
+              height={600}
+            />
+          ))}
+        </aside>
+      </div>
+    </>
   );
 }
 

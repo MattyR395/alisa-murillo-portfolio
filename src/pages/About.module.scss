@@ -2,7 +2,7 @@
 
 .about {
   display: grid;
-  grid-template-columns: 16vw auto;
+  grid-template-columns: 13rem auto;
   grid-template-rows: min-content min-content;
 
   gap: var(--gap-lg);
@@ -12,7 +12,7 @@
 
     img {
       object-fit: cover;
-      box-shadow: -1.1rem -0.7rem 0 0.2rem color("primary");
+      border-radius: 50%;
     }
   }
 }
