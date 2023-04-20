@@ -11,6 +11,7 @@ export default function ImageUploader(props: {
   isDirty: (isDirty: boolean) => void;
   onUpdate: (files: ImageFile[]) => void;
 }): JSX.Element {
+  const { isDirty, onUpdate } = props;
   const [files, setFiles] = useState<ImageFile[]>([]);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -43,9 +44,9 @@ export default function ImageUploader(props: {
   };
 
   useEffect(() => {
-    props.isDirty(!!files.length);
-    props.onUpdate(files);
-  }, [files]);
+    isDirty(!!files.length);
+    onUpdate(files);
+  }, [files, isDirty, onUpdate]);
 
   const thumbnails = files.map((file, i) => (
     <div className={style["image-uploader__thumb"]} key={file.name}>
@@ -66,9 +67,9 @@ export default function ImageUploader(props: {
   ));
 
   useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    // Make sure to revoke the data URIs to avoid memory leaks.
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
-  }, []);
+  }, [files]);
 
   return (
     <div {...getRootProps({ className: style["image-uploader"] })}>

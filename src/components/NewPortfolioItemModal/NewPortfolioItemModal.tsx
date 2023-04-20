@@ -1,6 +1,11 @@
 import { getAdminPortfolioItem } from "@/lib/get-portfolio-item";
 import { insertPortfolioItem } from "@/lib/insert-portfolio-item";
-import { insertFilePath, resizeFile, uploadFile } from "@/lib/upload-files";
+import {
+  getImageHeightAndWidth,
+  insertFilePath,
+  resizeFile,
+  uploadFile,
+} from "@/lib/upload-files";
 import { useAdminAppStore } from "@/store/admin-store";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
@@ -64,7 +69,8 @@ export default function NewPortfolioItemModal(props: {
     for (const image of images) {
       const resizedImage = await resizeFile(image);
       const uploadedPath = await uploadFile(resizedImage, supabaseClient);
-      insertFilePath(portfolioItemId, uploadedPath, supabaseClient);
+      const dimensions = await getImageHeightAndWidth(resizedImage);
+      insertFilePath(portfolioItemId, uploadedPath, supabaseClient, dimensions);
     }
   };
 

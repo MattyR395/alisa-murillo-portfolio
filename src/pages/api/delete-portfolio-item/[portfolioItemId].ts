@@ -34,12 +34,7 @@ export default async function handler(
         } = supabaseClient.storage.from("images").getPublicUrl("");
 
         await deleteBucketFiles(
-          images.map((image) => {
-            console.log("i", image.imageUrl);
-            console.log("m", publicUrl);
-
-            return image.imageUrl.replace(publicUrl, "");
-          }),
+          images.map((image) => image.imageUrl.replace(publicUrl, "")),
           supabaseClient
         );
       }

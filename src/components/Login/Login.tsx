@@ -42,9 +42,6 @@ export default function Login(): JSX.Element {
     setIsLoading(true);
 
     signInWithEmail(data.email, data.password)
-      .then(() => {
-        props.onLoginSuccess();
-      })
       .catch((error) => {
         setError("email", { type: "server", message: error.message });
       })

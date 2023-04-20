@@ -24,23 +24,23 @@ export default function AdminEditor(): JSX.Element {
   const [isNewPortfolioItemModalOpen, setIsNewPortfolioItemModalOpen] =
     useState(false);
 
-  const getPortfolioItems = async () => {
-    setArePortfolioItemsLoading(true);
-    const { data, error } = await supabaseClient
-      .rpc("get_portfolio_items", { locale_id: locale })
-      .select("id, title, thumbUrl");
-
-    if (error) {
-      throw error;
-    }
-
-    setPortfolioItems(data);
-    setArePortfolioItemsLoading(false);
-  };
-
   useEffect(() => {
+    const getPortfolioItems = async () => {
+      setArePortfolioItemsLoading(true);
+      const { data, error } = await supabaseClient
+        .rpc("get_portfolio_items", { locale_id: locale })
+        .select("id, title, thumbUrl");
+
+      if (error) {
+        throw error;
+      }
+
+      setPortfolioItems(data);
+      setArePortfolioItemsLoading(false);
+    };
+
     getPortfolioItems();
-  }, []);
+  }, [locale, setArePortfolioItemsLoading, setPortfolioItems, supabaseClient]);
 
   return (
     <div className="card">

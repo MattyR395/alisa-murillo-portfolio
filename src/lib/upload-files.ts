@@ -45,6 +45,10 @@ export const insertFilePath = async (
   portfolioItemId: number,
   path: string,
   supabaseClient: SupabaseClient,
+  dimensions: {
+    width: number;
+    height: number;
+  },
   displayOrder: number = 0
 ): Promise<void> => {
   const {
@@ -55,6 +59,8 @@ export const insertFilePath = async (
     portfolioItemId,
     displayOrder,
     imageUrl,
+    widthPx: dimensions.width,
+    heightPx: dimensions.height,
   });
 
   if (error) {
@@ -83,3 +89,21 @@ export const resizeFile = (file: File): Promise<File> => {
     );
   });
 };
+
+export const getImageHeightAndWidth = (
+  file: File
+): Promise<{
+  height: number;
+  width: number;
+}> =>
+  new Promise((resolve) => {
+    const dataUrl = window.URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      resolve({
+        height: img.height,
+        width: img.width,
+      });
+    };
+    img.src = dataUrl;
+  });

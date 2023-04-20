@@ -18,6 +18,7 @@ export default function PortfolioItemForm(props: {
   onSubmit: (data: PortfolioItemFormFields) => void;
   isDirty: (isDirty: boolean) => void;
 }): JSX.Element {
+  const { isDirty } = props;
   const { locales } = useRouter();
 
   // For comparison, we must set the initial values for each locale.
@@ -33,15 +34,15 @@ export default function PortfolioItemForm(props: {
   const {
     handleSubmit,
     register,
-    formState: { errors, isDirty },
+    formState: { errors, isDirty: isFormDirty },
   } = useForm<PortfolioItemFormFields>({
     defaultValues: initialValues,
   });
   const [selectedLanguage, setSelectedLanguage] = useState(locales![0]);
 
   useEffect(() => {
-    props.isDirty(isDirty);
-  }, [isDirty]);
+    isDirty(isFormDirty);
+  }, [isFormDirty, isDirty]);
 
   return (
     <>

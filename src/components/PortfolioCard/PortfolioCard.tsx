@@ -23,14 +23,15 @@ export default function PortfolioCard(props: {
       })}
       href={`portfolio/${props.uri}`}
     >
-      <Image
-        className={style["portfolio-card__image"]}
-        src={props.imagePath}
-        alt={props.title}
-        width={400}
-        height={400}
-        onLoad={handleOnLoad}
-      ></Image>
+      <div className={style["portfolio-card__image"]}>
+        <Image
+          src={props.imagePath}
+          alt={props.title}
+          width={400}
+          height={400}
+          onLoad={handleOnLoad}
+        ></Image>
+      </div>
 
       <div className={style["portfolio-card__title"]}>{props.title}</div>
     </Link>

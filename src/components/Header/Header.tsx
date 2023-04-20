@@ -126,3 +126,5 @@ const Nav = memo(
     );
   }
 );
+
+Nav.displayName = "Nav";
