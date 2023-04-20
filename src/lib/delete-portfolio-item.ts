@@ -1,4 +1,5 @@
 import { SupabaseClient } from "@supabase/auth-helpers-react";
+import { errorToast } from "./error-toast";
 
 export const deletePortfolioItem = async (
   id: number,
@@ -11,6 +12,7 @@ export const deletePortfolioItem = async (
       .match({ id });
 
     if (error) {
+      errorToast(error.message);
       throw error.message;
     }
   } catch (error) {

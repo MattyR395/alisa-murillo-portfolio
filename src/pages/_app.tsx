@@ -5,8 +5,9 @@ import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "../components/Header/Header";
-
 export default function App({
   Component,
   pageProps,
@@ -38,6 +39,7 @@ export default function App({
       <main>
         <Component {...pageProps} />
       </main>
+      <ToastContainer />
     </SessionContextProvider>
   );
 }

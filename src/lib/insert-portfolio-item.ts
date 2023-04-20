@@ -1,4 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
+import { errorToast } from "./error-toast";
 
 export const insertPortfolioItem = async (
   portfolioItem: {
@@ -28,6 +29,7 @@ export const insertPortfolioItem = async (
       );
 
     if (translationsError) {
+      errorToast(translationsError.message);
       throw translationsError;
     }
 

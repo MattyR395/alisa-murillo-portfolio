@@ -1,3 +1,4 @@
+import { errorToast } from "@/lib/error-toast";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import { FaSignOutAlt } from "react-icons/fa";
@@ -10,7 +11,7 @@ export default function AdminHeader(): JSX.Element {
     const { error } = await supabaseClient.auth.signOut();
 
     if (error) {
-      console.error("Error signing out:", error.message);
+      errorToast(error.message);
     }
   };
 

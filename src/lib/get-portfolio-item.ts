@@ -1,5 +1,6 @@
 import { AdminPortfolioItem } from "@/models/admin-portfolio-item";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { errorToast } from "./error-toast";
 
 export const getAdminPortfolioItem = async (
   id: number,
@@ -15,6 +16,7 @@ export const getAdminPortfolioItem = async (
       .select("id, title");
 
     if (error) {
+      errorToast(error.message);
       throw error;
     }
 
