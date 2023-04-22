@@ -19,13 +19,14 @@ export default function ImageUploader(props: {
       "image/*": [".png", ".jpg", ".jpeg", ".webp"],
     },
     onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
+      setFiles([
+        ...files,
+        ...acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
-        )
-      );
+        ),
+      ]);
     },
     maxSize: 15000000, // 15MB
   });
@@ -49,7 +50,7 @@ export default function ImageUploader(props: {
   }, [files, isDirty, onUpdate]);
 
   const thumbnails = files.map((file, i) => (
-    <div className={style["image-uploader__thumb"]} key={file.name}>
+    <div className={style["image-uploader__thumb"]} key={i}>
       <button
         onClick={(e) => handleImageDelete(e, i)}
         className={`form-control form-control--icon ${style["image-uploader__thumb__delete"]}`}
