@@ -17,25 +17,9 @@ export default function About(): JSX.Element {
       </div>
 
       <div>
-        <hgroup>
-          <h1>{t("header")}</h1>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit, quia?
-          </p>
-        </hgroup>
+        <h1>{t("header")}</h1>
 
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
-          cupiditate minus eos consequatur deserunt necessitatibus, molestias
-          soluta ipsum error omnis adipisci vero harum corrupti nemo quos animi.
-          Nisi, blanditiis consequuntur.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
-          cupiditate minus eos consequatur deserunt necessitatibus, molestias
-          soluta ipsum error omnis adipisci vero harum corrupti nemo quos animi.
-          Nisi, blanditiis consequuntur.
-        </p>
+        <p>{t("p1")}</p>
       </div>
     </div>
   );
