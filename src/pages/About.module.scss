@@ -7,8 +7,15 @@
 
   gap: var(--gap-lg);
 
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content min-content;
+  }
+
   &__image {
     position: relative;
+    max-width: 13rem;
+    margin: 0 auto;
 
     img {
       object-fit: cover;

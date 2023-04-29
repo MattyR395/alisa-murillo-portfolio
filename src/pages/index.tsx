@@ -5,7 +5,7 @@ import PortfolioCard from "../components/PortfolioCard/PortfolioCard";
 
 export default function Home(props: { portfolioItems: PortfolioItem[] }) {
   const masonryBreakpoints = {
-    default: 3,
+    default: 4,
     900: 2,
     500: 1,
   };

@@ -13,13 +13,10 @@
 .portfolio-container {
   display: flex;
   width: auto;
+  gap: var(--gap-md);
 
-  &,
   &__column {
     gap: var(--gap-lg);
-  }
-
-  &__column {
     display: flex;
     flex-direction: column;
   }
