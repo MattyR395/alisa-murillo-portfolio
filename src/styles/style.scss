@@ -21,3 +21,18 @@
     flex-direction: column;
   }
 }
+
+:root {
+  --toastify-toast-width: min(calc(100vw - 2rem), 36rem) !important;
+  --toastify-font-family: #{var(--font-family-primary)} !important;
+}
+
+.Toastify__toast {
+  font-size: 0.9rem;
+
+  &--success {
+    --toastify-color-light: #{color("success")};
+    --toastify-text-color-light: #{color("success-text")};
+    --toastify-icon-color-success: #{color("success-text")};
+  }
+}
