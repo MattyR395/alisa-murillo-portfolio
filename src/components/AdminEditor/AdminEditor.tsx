@@ -50,6 +50,7 @@ export default function AdminEditor(): JSX.Element {
         <button
           className="form-control form-control--icon"
           onClick={() => setIsNewPortfolioItemModalOpen(true)}
+          title="Add item"
         >
           <FaPlus />
         </button>
