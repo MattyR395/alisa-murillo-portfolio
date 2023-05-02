@@ -8,6 +8,6 @@
   "404": {
     "header": "404 - Página no encontrada",
     "description": "La página que estás buscando no existe o ha sido movida."
-  }
-
+  },
+  "docTitle": "Alisa Murillo | {{title}}"
 }

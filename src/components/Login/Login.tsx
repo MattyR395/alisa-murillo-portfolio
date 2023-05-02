@@ -1,6 +1,8 @@
 import ValidationTooltip from "@/components/ValidationTooltip/ValidationTooltip";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import clsx from "clsx";
+import useTranslation from "next-translate/useTranslation";
+import Head from "next/head";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import style from "./Login.module.scss";
@@ -20,6 +22,7 @@ export default function Login(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState(false);
   const { supabaseClient } = useSessionContext();
+  const { t } = useTranslation("common");
 
   /**
    * Attempt to sign in with email and password through Supabase.
@@ -49,52 +52,63 @@ export default function Login(): JSX.Element {
   };
 
   return (
-    <form
-      className={`${style["login-form"]} card`}
-      noValidate
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <h1>Login</h1>
+    <>
+      <Head>
+        <title>
+          {t("common:docTitle", {
+            title: "Login",
+          })}
+        </title>
+        <meta name="robots" content="noindex, nofollow"></meta>
+      </Head>
 
-      <div>
-        <label htmlFor="email" className="form-control-label">
-          Email
-        </label>
-        <input
-          aria-invalid={errors.email ? "true" : "false"}
-          className="form-control"
-          type="email"
-          id="email"
-          disabled={isLoading}
-          {...register("email")}
-        />
-        <ValidationTooltip messages={["Invalid login details"]} />
-      </div>
-
-      <div>
-        <label htmlFor="password" className="form-control-label">
-          Password
-        </label>
-        <input
-          aria-invalid={errors.password ? "true" : "false"}
-          className="form-control"
-          type="password"
-          id="password"
-          disabled={isLoading}
-          {...register("password", { required: true })}
-        />
-        <ValidationTooltip messages={["Password is required"]} />
-      </div>
-
-      <button
-        className={clsx({
-          "form-control": true,
-          "is-loading": isLoading,
-        })}
-        type="submit"
+      <form
+        className={`${style["login-form"]} card`}
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
       >
-        <span>Login</span>
-      </button>
-    </form>
+        <h1>Login</h1>
+
+        <div>
+          <label htmlFor="email" className="form-control-label">
+            Email
+          </label>
+          <input
+            aria-invalid={errors.email ? "true" : "false"}
+            className="form-control"
+            type="email"
+            id="email"
+            disabled={isLoading}
+            {...register("email")}
+          />
+          <ValidationTooltip messages={["Invalid login details"]} />
+        </div>
+
+        <div>
+          <label htmlFor="password" className="form-control-label">
+            Password
+          </label>
+          <input
+            aria-invalid={errors.password ? "true" : "false"}
+            className="form-control"
+            type="password"
+            id="password"
+            disabled={isLoading}
+            {...register("password", { required: true })}
+          />
+          <ValidationTooltip messages={["Password is required"]} />
+        </div>
+
+        <button
+          className={clsx({
+            "form-control": true,
+            "is-loading": isLoading,
+          })}
+          type="submit"
+        >
+          <span>Login</span>
+        </button>
+      </form>
+    </>
   );
 }

@@ -8,5 +8,6 @@
   "404": {
     "header": "404 - Page Not Found",
     "description": "The page you're looking for does not exist!"
-  }
+  },
+  "docTitle": "Alisa Murillo | {{title}}"
 }
