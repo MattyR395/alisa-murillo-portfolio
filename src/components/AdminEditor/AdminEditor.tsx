@@ -1,6 +1,8 @@
 import emptyStateImage from "@/../public/portfolio-items-empty-state.svg";
 import { useAdminAppStore } from "@/store/admin-store";
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import useTranslation from "next-translate/useTranslation";
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -24,6 +26,8 @@ export default function AdminEditor(): JSX.Element {
   const [isNewPortfolioItemModalOpen, setIsNewPortfolioItemModalOpen] =
     useState(false);
 
+  const { t } = useTranslation("common");
+
   useEffect(() => {
     const getPortfolioItems = async () => {
       setArePortfolioItemsLoading(true);
@@ -43,44 +47,54 @@ export default function AdminEditor(): JSX.Element {
   }, [locale, setArePortfolioItemsLoading, setPortfolioItems, supabaseClient]);
 
   return (
-    <div className="card">
-      <div className="card__header">
-        <h1>Portfolio items</h1>
+    <>
+      <Head>
+        <title>
+          {t("common:docTitle", {
+            title: "Admin",
+          })}
+        </title>
+      </Head>
 
-        <button
-          className="form-control form-control--icon"
-          onClick={() => setIsNewPortfolioItemModalOpen(true)}
-          title="Add item"
-        >
-          <FaPlus />
-        </button>
+      <div className="card">
+        <div className="card__header">
+          <h1>Portfolio items</h1>
 
-        <NewPortfolioItemModal
-          isOpen={isNewPortfolioItemModalOpen}
-          onClose={() => setIsNewPortfolioItemModalOpen(false)}
-        />
-      </div>
+          <button
+            className="form-control form-control--icon"
+            onClick={() => setIsNewPortfolioItemModalOpen(true)}
+            title="Add item"
+          >
+            <FaPlus />
+          </button>
 
-      <LoadingContainer
-        isLoading={arePortfolioItemsLoading}
-        isEmpty={!portfolioItems.length}
-        height="16rem"
-        emptyState={
-          <EmptyState
-            isVisible={!portfolioItems.length && !arePortfolioItemsLoading}
-            icon={<Image src={emptyStateImage} alt="Add a portfolio item" />}
-            title="Looking empty!"
-            description="Start adding portfolio items using the button above."
+          <NewPortfolioItemModal
+            isOpen={isNewPortfolioItemModalOpen}
+            onClose={() => setIsNewPortfolioItemModalOpen(false)}
           />
-        }
-        loadingState={<LoadingIndicator isVisible={true} />}
-      >
-        {portfolioItems.map((item) => {
-          return (
-            <PortfolioItemBar key={item.id} id={item.id} title={item.title} />
-          );
-        })}
-      </LoadingContainer>
-    </div>
+        </div>
+
+        <LoadingContainer
+          isLoading={arePortfolioItemsLoading}
+          isEmpty={!portfolioItems.length}
+          height="16rem"
+          emptyState={
+            <EmptyState
+              isVisible={!portfolioItems.length && !arePortfolioItemsLoading}
+              icon={<Image src={emptyStateImage} alt="Add a portfolio item" />}
+              title="Looking empty!"
+              description="Start adding portfolio items using the button above."
+            />
+          }
+          loadingState={<LoadingIndicator isVisible={true} />}
+        >
+          {portfolioItems.map((item) => {
+            return (
+              <PortfolioItemBar key={item.id} id={item.id} title={item.title} />
+            );
+          })}
+        </LoadingContainer>
+      </div>
+    </>
   );
 }

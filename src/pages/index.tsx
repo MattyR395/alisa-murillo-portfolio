@@ -1,5 +1,7 @@
 import { supabase } from "@/lib/init-supabase";
 import { PortfolioItem } from "@/models/portfolio-item.model";
+import useTranslation from "next-translate/useTranslation";
+import Head from "next/head";
 import Masonry from "react-masonry-css";
 import PortfolioCard from "../components/PortfolioCard/PortfolioCard";
 
@@ -10,8 +12,18 @@ export default function Home(props: { portfolioItems: PortfolioItem[] }) {
     500: 1,
   };
 
+  const { t } = useTranslation("common");
+
   return (
     <>
+      <Head>
+        <title>
+          {t("docTitle", {
+            title: t("header.portfolio"),
+          })}
+        </title>
+        <meta name="description" content={t("about:p1")} />
+      </Head>
       <Masonry
         breakpointCols={masonryBreakpoints}
         className="portfolio-container"

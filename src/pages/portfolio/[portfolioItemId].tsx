@@ -1,4 +1,6 @@
 import { supabase } from "@/lib/init-supabase";
+import useTranslation from "next-translate/useTranslation";
+import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
@@ -24,9 +26,24 @@ export default function PortfolioItemPage(
 ): JSX.Element {
   const { title, description, images } = props.portfolioItem;
   const [lightBoxIndex, setLightboxIndex] = useState(-1);
+  const { t } = useTranslation("common");
 
   return (
     <>
+      <Head>
+        <title>
+          {t("docTitle", {
+            title: title,
+          })}
+        </title>
+        <meta
+          name="og:title"
+          property={t("docTitle", {
+            title: title,
+          })}
+        ></meta>
+        <meta name="description" content={description} />
+      </Head>
       <Lightbox
         open={lightBoxIndex !== -1}
         index={lightBoxIndex}
