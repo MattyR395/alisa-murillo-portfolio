@@ -8,11 +8,12 @@ import style from "./HamburgerMenu.module.scss";
 function HamburgerMenu(props: {
   isOpen: boolean;
   headerHeightPx: number;
+  id: string;
 }): JSX.Element {
   const { t } = useTranslation("common");
 
   return (
-    <div
+    <nav
       className={clsx({
         [style["hamburger-menu"]]: true,
         [style["is-open"]]: props.isOpen,
@@ -20,6 +21,9 @@ function HamburgerMenu(props: {
       style={{
         paddingBlock: `${props.headerHeightPx}px`,
       }}
+      role="menu"
+      aria-expanded={props.isOpen}
+      id={props.id}
     >
       <ul>
         {Object.values(navLinks).map((link) => (
@@ -28,7 +32,7 @@ function HamburgerMenu(props: {
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 }
 

@@ -15,7 +15,7 @@
   &__bars {
     &::after,
     &::before,
-    div {
+    span {
       background-color: color("secondary");
       border-radius: 3px;
       content: "";
@@ -28,7 +28,7 @@
 
   &.is-open {
     .hamburger__bars {
-      div {
+      span {
         transform: scale(0);
       }
 

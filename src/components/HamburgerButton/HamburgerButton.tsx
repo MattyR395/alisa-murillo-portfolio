@@ -5,6 +5,7 @@ import style from "./HamburgerButton.module.scss";
 export default function HamburgerButton(props: {
   onClick: () => void;
   isActivated: boolean;
+  ariaControlsId: string;
 }): JSX.Element {
   const { t } = useTranslation("common");
   const { onClick, isActivated = false } = props;
@@ -16,10 +17,12 @@ export default function HamburgerButton(props: {
         [style["is-open"]]: isActivated,
         [style.hamburger]: true,
       })}
+      aria-expanded={props.isActivated}
+      aria-controls={props.ariaControlsId}
     >
-      <div className={style.hamburger__bars}>
-        <div></div>
-      </div>
+      <span className={style.hamburger__bars}>
+        <span></span>
+      </span>
       {t("header.menu")}
     </button>
   );

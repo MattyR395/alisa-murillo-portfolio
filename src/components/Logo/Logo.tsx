@@ -13,7 +13,7 @@ function Logo(props: { href: string; title: string }): JSX.Element {
         <defs>
           <style>{`.cls-1{fill:currentColor}.cls-2{mix-blend-mode:multiply}`}</style>
         </defs>
-        <g id="#logo">
+        <g>
           <g style={{ isolation: "isolate" }}>
             <g id="Layer_2">
               <g id="Layer_1-2">

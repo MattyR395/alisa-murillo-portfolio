@@ -55,7 +55,11 @@ export default function Header(): JSX.Element {
 
   return (
     <>
-      <HamburgerMenu isOpen={isMobileMenuOpen} headerHeightPx={headerHeight} />
+      <HamburgerMenu
+        isOpen={isMobileMenuOpen}
+        headerHeightPx={headerHeight}
+        id="hamburger-menu"
+      />
 
       <div>
         {!isSessionLoading && session && <AdminHeader />}
@@ -103,6 +107,7 @@ const Nav = memo(
         <Logo
           href={navLinks.portfolio.path}
           title={t(navLinks.portfolio.label)}
+          aria-label={t(navLinks.portfolio.label)}
         />
 
         <Link
@@ -120,6 +125,7 @@ const Nav = memo(
           <HamburgerButton
             onClick={props.handleHamburgerClick}
             isActivated={props.isMobileMenuOpen}
+            ariaControlsId="hamburger-menu"
           />
         </span>
       </nav>

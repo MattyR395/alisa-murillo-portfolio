@@ -144,7 +144,7 @@ export default function Contact(): JSX.Element {
             </li>
             <li>
               <label className="form-control-label">{t("phone")}</label>
-              <Link href="tel:+447759 435288">(+44) 7759 435288</Link>
+              <Link href="tel:+447759435288">(+44) 7759 435288</Link>
             </li>
             <li>
               <label className="form-control-label">LinkedIn</label>
