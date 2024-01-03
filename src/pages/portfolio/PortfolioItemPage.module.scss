@@ -9,7 +9,9 @@
 
   section {
     min-width: 21.5rem;
-    position: sticky;
+
+    // Causes the text to overflow if it's too large. 
+    //position: sticky;
     top: 8rem;
   }
 
