@@ -13,6 +13,13 @@
     // Causes the text to overflow if it's too large. 
     //position: sticky;
     top: 8rem;
+
+    p {
+      // Make line breaks entered in the textarea input visible.
+      white-space: pre-wrap;
+
+      margin-top: 1rem;
+    }
   }
 
   aside {
